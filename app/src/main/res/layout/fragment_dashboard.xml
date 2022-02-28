@@ -1,22 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment">
-
-    <TextView
-        android:id="@+id/text_dashboard"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="@color/black" >
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:text="Events swiped"
+            android:textSize="24sp"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:padding="12dp"
+            android:background="@drawable/round_corners"
+            android:text="Tomas, 25 yo, 2 km \n15/02 15h \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
+            android:textSize="16sp"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/remove1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:backgroundTint="@color/red"
+            android:text="Remove" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:padding="12dp"
+            android:background="@drawable/round_corners"
+            android:text="Luis, 22 yo, 2 km \n12/02 11h \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
+            android:textSize="16sp"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/remove2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:backgroundTint="@color/red"
+            android:text="Remove" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:padding="12dp"
+            android:background="@drawable/round_corners"
+            android:text="Luis, 22 yo, 2 km \n12/02 11h \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
+            android:textSize="16sp"
+            android:textColor="@color/black" />
+
+        <Button
+            android:id="@+id/remove3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="100dp"
+            android:gravity="center"
+            android:backgroundTint="@color/red"
+            android:text="Remove" />
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>
