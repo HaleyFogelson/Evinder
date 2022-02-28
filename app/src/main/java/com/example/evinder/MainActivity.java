@@ -1,7 +1,11 @@
 package com.example.evinder;
 
 import android.app.ActionBar;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -13,9 +17,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.evinder.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Calendar;
 
+public class MainActivity extends AppCompatActivity {
+    private DatePickerDialog date_p;
     private ActivityMainBinding binding;
+    private Calendar calendar;
+    private DatePickerDialog picker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +41,25 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
     }
 
+    public void changeDate(View view) {
+        Button b = (Button) findViewById(R.id.edit_date);
+
+        this.calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        System.out.println("DAY : "+day);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
+        picker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                String s = i2+"/"+(i1+1)+"/"+i;
+                b.setText(s);
+            }
+        }, day, month, year);
+        picker.show();
+    }
 }
