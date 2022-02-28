@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:text="Settings"
         tools:layout_editor_absoluteX="138dp"
-        tools:layout_editor_absoluteY="107dp" />
+        tools:layout_editor_absoluteY="107dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/text_setting"
