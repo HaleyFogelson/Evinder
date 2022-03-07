@@ -54,27 +54,33 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:paddingHorizontal="30dp"
-                    android:layout_marginVertical="20dp">
-                    <Button
-                        android:id="@+id/darktheme"
-                        android:text="Dark"
-                        android:textColor="@color/black"
-                        android:backgroundTint="@color/white"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent">
-                    </Button>
+                    android:layout_marginVertical="20dp"
+                    android:layout_gravity="center">
+                    <EditText
+                        android:id="@+id/nameActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:hint="Activity Name"
+                        android:textColor="@color/textColor"
+                        android:background="@drawable/editressource"
+                        android:padding="10dp"
+                        >
+                    </EditText>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:paddingHorizontal="30dp"
-                    android:layout_marginVertical="20dp">
+                    android:layout_marginVertical="20dp"
+                    android:layout_gravity="center">
                     <Button
                         android:id="@+id/edit_date"
                         android:text="Date"
-                        android:backgroundTint="@color/disabled"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
+
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
                         android:onClick="changeDate">
@@ -85,18 +91,86 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:paddingHorizontal="30dp"
-                    android:layout_marginVertical="20dp">
-                    <Button
-                        android:id="@+id/lighttheme"
-                        android:text="Light"
-                        android:backgroundTint="@color/disabled"
-                        android:textColor="@color/black"
-                        android:layout_height="match_parent"
-                        android:layout_width="match_parent">
-                    </Button>
+                    android:layout_marginVertical="20dp"
+                    android:layout_gravity="center">
+                    <EditText
+                        android:id="@+id/location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:hint="Location"
+                        android:textColor="@color/textColor"
+                        android:background="@drawable/editressource"
+                        android:padding="10dp"
+                        >
+                    </EditText>
                 </LinearLayout>
             </TableRow>
         </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/image_displayed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/football"
+                android:visibility="gone">
+            </ImageView>
+
+            <Button
+                android:id="@+id/add_picture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add a picture"
+                android:padding="20dp"
+                android:background="@color/cyan"
+                android:onClick="addPicture"></Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About my event"
+                android:layout_marginBottom="10dp">
+            </TextView>
+            <EditText
+                android:id="@+id/firstnameuser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="How would you describe your event ?"
+                android:textColor="@color/textColor"
+                android:background="@drawable/editressource"
+                android:height="200dp"
+                android:padding="10dp"
+                >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="100dp">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirm"
+                android:padding="20dp"
+                android:background="@color/cyan"></Button>
+        </LinearLayout>
 
     </LinearLayout>
     </ScrollView>

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -59,7 +60,16 @@ public class MainActivity extends AppCompatActivity {
                 String s = i2+"/"+(i1+1)+"/"+i;
                 b.setText(s);
             }
-        }, day, month, year);
+        }, year, month, day);
+
+        picker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
         picker.show();
+    }
+
+    public void addPicture(View view) {
+        ImageView iv = (ImageView) findViewById(R.id.image_displayed);
+
+        iv.setVisibility(View.VISIBLE);
     }
 }
