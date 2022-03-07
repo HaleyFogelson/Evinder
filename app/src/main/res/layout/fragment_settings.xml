@@ -7,7 +7,8 @@
     tools:context=".ui.home.HomeFragment">
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="MissingConstraints">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -25,112 +26,69 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="20dp"
                 android:padding="12dp"
                 android:background="@drawable/round_corners"
-                android:text="Tomas, 25 yo, 2 km \n15/02 15h \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
+                android:text="EventName01 \n15/02 15h \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
                 android:textSize="16sp"
                 android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/edit1"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/round_corners"
+                android:backgroundTint="@color/cyan"
+                android:gravity="center"
+                android:text="Edit photo" />
 
             <Button
                 android:id="@+id/remove1"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="20dp"
-                android:gravity="center"
+                android:background="@drawable/round_corners"
                 android:backgroundTint="@color/red"
+                android:gravity="center"
                 android:text="Remove" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="20dp"
                 android:padding="12dp"
                 android:background="@drawable/round_corners"
-                android:text="Luis, 22 yo, 2 km \n12/02 11h \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
+                android:text="EventName02 \n12/02 14h30 \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
                 android:textSize="16sp"
                 android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/edit2"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:background="@drawable/round_corners"
+                android:backgroundTint="@color/cyan"
+                android:text="Edit photo" />
 
             <Button
                 android:id="@+id/remove2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:backgroundTint="@color/red"
-                android:text="Remove" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="20dp"
-                android:padding="12dp"
-                android:background="@drawable/round_corners"
-                android:text="Luis, 22 yo, 2 km \n12/02 11h \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/remove3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:backgroundTint="@color/red"
-                android:text="Remove" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="20dp"
-                android:padding="12dp"
-                android:background="@drawable/round_corners"
-                android:text="Luis, 22 yo, 2 km \n12/02 11h \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/remove4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:backgroundTint="@color/red"
-                android:text="Remove" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="20dp"
-                android:padding="12dp"
-                android:background="@drawable/round_corners"
-                android:text="Luis, 22 yo, 2 km \n12/02 11h \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/remove5"
-                android:layout_width="wrap_content"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="100dp"
                 android:gravity="center"
+                android:background="@drawable/round_corners"
                 android:backgroundTint="@color/red"
                 android:text="Remove" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

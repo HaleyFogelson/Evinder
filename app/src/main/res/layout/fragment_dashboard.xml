@@ -27,7 +27,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
             android:layout_gravity="center_horizontal"
             android:layout_margin="20dp"
             android:padding="12dp"
@@ -38,18 +37,18 @@
 
         <Button
             android:id="@+id/remove1"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
             android:gravity="center"
+            android:background="@drawable/round_corners"
             android:backgroundTint="@color/red"
             android:text="Remove" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
             android:layout_gravity="center_horizontal"
             android:layout_margin="20dp"
             android:padding="12dp"
@@ -60,18 +59,18 @@
 
         <Button
             android:id="@+id/remove2"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:gravity="center"
+            android:background="@drawable/round_corners"
             android:backgroundTint="@color/red"
             android:text="Remove" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
             android:layout_gravity="center_horizontal"
             android:layout_margin="20dp"
             android:padding="12dp"
@@ -82,18 +81,18 @@
 
         <Button
             android:id="@+id/remove3"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:gravity="center"
+            android:background="@drawable/round_corners"
             android:backgroundTint="@color/red"
             android:text="Remove" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
             android:layout_gravity="center_horizontal"
             android:layout_margin="20dp"
             android:padding="12dp"
@@ -104,18 +103,18 @@
 
         <Button
             android:id="@+id/remove4"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:gravity="center"
+            android:background="@drawable/round_corners"
             android:backgroundTint="@color/red"
             android:text="Remove" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left"
             android:layout_gravity="center_horizontal"
             android:layout_margin="20dp"
             android:padding="12dp"
@@ -126,11 +125,12 @@
 
         <Button
             android:id="@+id/remove5"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="100dp"
             android:gravity="center"
+            android:background="@drawable/round_corners"
             android:backgroundTint="@color/red"
             android:text="Remove" />
     </LinearLayout>
