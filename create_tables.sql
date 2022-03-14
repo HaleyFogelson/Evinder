@@ -22,8 +22,8 @@ CREATE TABLE EVENTS (
 
 
 CREATE TABLE ASSOCIATIONS (
-	event_id_assoc INTEGER,
 	user_id_assoc INTEGER,
+	event_id_assoc INTEGER,
 	PRIMARY KEY(event_id_assoc, user_id_assoc),
 	FOREIGN KEY (user_id_assoc)
 	REFERENCES USERS(user_id)
