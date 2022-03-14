@@ -74,23 +74,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
+
             <Button
                 android:id="@+id/edit2"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="40dp"
-                android:gravity="center"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/round_corners"
                 android:backgroundTint="@color/cyan"
                 android:gravity="center"
                 android:text="Edit photo" />
+
             <Button
                 android:id="@+id/remove2"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="20dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"
                 android:background="@drawable/round_corners"
                 android:backgroundTint="@color/red"
