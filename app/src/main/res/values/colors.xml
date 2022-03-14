@@ -15,4 +15,6 @@
     <color name="red">#FF0000</color>
     <color name="green">#00FF00</color>
     <color name="cyan">#37A9FF</color>
+    <color name="dark_card_01">#C3C3C3</color>
+    <color name="dark_card_02">#868686</color>
 </resources>
