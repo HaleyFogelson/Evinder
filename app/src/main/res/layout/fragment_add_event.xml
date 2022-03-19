@@ -145,7 +145,7 @@
                 android:layout_marginBottom="10dp">
             </TextView>
             <EditText
-                android:id="@+id/firstnameuser"
+                android:id="@+id/descriptionEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"

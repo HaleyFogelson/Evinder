@@ -21,8 +21,10 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -44,17 +46,11 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Calendar calendar;
     private DatePickerDialog picker;
-    private TextView infosOwner, infosText;
 
-    private ArrayList<Post> urls = new ArrayList<>();
-    private int currentIndice;
-
-    private int touchCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -68,51 +64,44 @@ public class MainActivity extends AppCompatActivity {
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        this.infosOwner = (TextView) findViewById(R.id.infosOwnerPost);
-        this.infosText = (TextView) findViewById(R.id.infosTextPost);
-
-        //init
-        this.currentIndice = 0;
-        this.touchCount = 0;
-
-        this.urls.add(new Post("https://media.istockphoto.com/photos/group-of-friends-enjoying-drinks-at-bar-picture-id174951485?k=20&m=174951485&s=612x612&w=0&h=VTE7OgRXtA2D13g_GjZBNzckFKpBF97BjzKmFwHTLV8=",
+        SauvegardeFragmentPostsView.posts.add(new Post("https://media.istockphoto.com/photos/group-of-friends-enjoying-drinks-at-bar-picture-id174951485?k=20&m=174951485&s=612x612&w=0&h=VTE7OgRXtA2D13g_GjZBNzckFKpBF97BjzKmFwHTLV8=",
                 "Tomas", 2, 25, "15/02 15h", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis."));
-        this.urls.add(new Post("https://images.pexels.com/photos/8455350/pexels-photo-8455350.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        SauvegardeFragmentPostsView.posts.add(new Post("https://images.pexels.com/photos/8455350/pexels-photo-8455350.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                 "Paul", 4, 22, "15/02 15h", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis."));
-        this.urls.add(new Post("https://barozziveiga.com/media/pages/projects/museum-of-fine-arts/4029461183-1623917242/12_19-10-mcba-ebv_simon-menges_06_hires.jpg",
+        SauvegardeFragmentPostsView.posts.add(new Post("https://barozziveiga.com/media/pages/projects/museum-of-fine-arts/4029461183-1623917242/12_19-10-mcba-ebv_simon-menges_06_hires.jpg",
                 "Lucy", 1, 25, "15/02 15h", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis."));
 
         this.initPost();
         this.initListener();
     }
 
-    private void initListener() {
+    public void initListener() {
         ImageView imageView = (ImageView) findViewById(R.id.main_card);
         imageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                int x = (int) event.getX();
-                int y = (int) event.getY();
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    int x = (int) event.getX();
+                    int y = (int) event.getY();
 
-                Context context = getApplicationContext();
-                CharSequence text = null;
-                Toast toast;
+                    Context context = getApplicationContext();
+                    CharSequence text = null;
+                    Toast toast;
 
-                if(x<225) {
-                    text="Dislike";
-                }
-                else {
-                    if (x>775) {
-                        text="Like";
-                        likePost();
+                    if (x < 225) {
+                        text = "Dislike";
+                    } else {
+                        if (x > 775) {
+                            text = "Like";
+                            likePost();
+                        }
                     }
-                }
-                int duration = Toast.LENGTH_SHORT;
+                    int duration = Toast.LENGTH_SHORT;
 
-                if(x<225 || x>775) {
-                    if(getTouchCount()==0) {
+                    if (x < 225 || x > 775) {
+                        System.out.println("CLICK COTE");
                         switchImage();
-                        if(text!=null) {
+                        if (text != null) {
                             toast = Toast.makeText(context, text, duration);
                             toast.show();
                         }
@@ -124,32 +113,39 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public int getTouchCount() {
-        return this.touchCount;
-    }
+    public void initPost() {
+        if(SauvegardeFragmentPostsView.indexView >= SauvegardeFragmentPostsView.posts.size()) {
+            CardView cv = (CardView) findViewById(R.id.cardViewContainer);
+            cv.setVisibility(View.GONE);
 
-    private void initPost() {
-        if(this.currentIndice < this.urls.size()) {
-            new DownloadImageTask((ImageView) findViewById(R.id.main_card)).execute(this.urls.get(this.currentIndice).getUrl());
-            this.infosText.setText(this.urls.get(this.currentIndice).getTextActivity());
+            TextView tv = (TextView) findViewById(R.id.seenEverything);
+            tv.setVisibility(View.VISIBLE);
+        }
+        else {
+            TextView infosOwner, infosText;
+            infosOwner = (TextView) findViewById(R.id.infosOwnerPost);
+            infosText = (TextView) findViewById(R.id.infosTextPost);
+            new DownloadImageTask((ImageView) findViewById(R.id.main_card)).execute(SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getUrl());
+            infosText.setText(SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getTextActivity());
+            System.out.println("INDICE : " + SauvegardeFragmentPostsView.indexView + "\n");
+            System.out.println("TEXT : " + SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getPseudo() + "\n");
 
             String builder = "";
-            builder+=this.urls.get(this.currentIndice).getPseudo()+", ";
-            builder+=this.urls.get(this.currentIndice).getAge()+" yo, ";
-            builder+=this.urls.get(this.currentIndice).getDistance()+" km,\n";
-            builder+=this.urls.get(this.currentIndice).getDateActivity();
-            this.infosOwner.setText(builder);
+            builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getPseudo() + ", ";
+            builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getAge() + " yo, ";
+            builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getDistance() + " km,\n";
+            builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getDateActivity();
+            infosOwner.setText(builder);
         }
     }
 
     public void likePost() {
-        if(this.currentIndice < this.urls.size())
-            this.urls.get(this.currentIndice).setLiked();
+        if(SauvegardeFragmentPostsView.indexView < SauvegardeFragmentPostsView.posts.size())
+            SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).setLiked();
     }
 
     public void switchImage() {
-        this.touchCount++;
-        this.currentIndice++;
+        SauvegardeFragmentPostsView.indexView++;
         ImageView imageView = (ImageView) findViewById(R.id.main_card);
         imageView.setImageResource(0);
 
@@ -182,9 +178,11 @@ public class MainActivity extends AppCompatActivity {
         ImageView iv = (ImageView) findViewById(R.id.image_displayed);
 
         iv.setVisibility(View.VISIBLE);
+        SauvegardeFragmentAdd.image = true;
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    //Taken from https://stackoverflow.com/questions/5776851/load-image-from-url/37612481#37612481
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap>{
         ImageView bmImage;
 
         public DownloadImageTask(ImageView bmImage) {
@@ -208,5 +206,4 @@ public class MainActivity extends AppCompatActivity {
             bmImage.setImageBitmap(result);
         }
     }
-
 }

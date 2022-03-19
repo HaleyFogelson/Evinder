@@ -41,7 +41,18 @@
                 android:textColor="@color/textColor"
                 android:textSize="24sp"></TextView>
 
+            <TextView
+                android:id="@+id/seenEverything"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="You have already seen everything !"
+                android:visibility="gone"
+                android:textSize="20dp"
+                android:textStyle="bold"></TextView>
+
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewContainer"
                 android:layout_width="match_parent"
                 android:layout_height="520dp"
                 android:layout_marginHorizontal="20dp"
