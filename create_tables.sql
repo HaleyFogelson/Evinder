@@ -19,8 +19,6 @@ CREATE TABLE EVENTS (
 	ON DELETE CASCADE	
 );
 
-
-
 CREATE TABLE ASSOCIATIONS (
 	user_id_assoc INTEGER,
 	event_id_assoc INTEGER,
