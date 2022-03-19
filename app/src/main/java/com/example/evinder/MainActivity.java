@@ -174,6 +174,25 @@ public class MainActivity extends AppCompatActivity {
         picker.show();
     }
 
+    public void changeDateBirthday(View view) {
+        Button b = (Button) findViewById(R.id.edit_date);
+
+        this.calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        System.out.println("DAY : "+day);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+
+        picker = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                String s = i2+"/"+(i1+1)+"/"+i;
+                b.setText(s);
+            }
+        }, year, month, day);
+        picker.show();
+    }
+
     public void addPicture(View view) {
         ImageView iv = (ImageView) findViewById(R.id.image_displayed);
 

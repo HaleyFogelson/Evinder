@@ -53,9 +53,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
+                android:hint="Name"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:text="Leo"
+                android:textColor="@color/textColor"
+                android:background="@drawable/editressource"
+                android:layout_marginBottom="30dp"
+                >
+            </EditText>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:hint="Email address"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
                 android:textColor="@color/textColor"
                 android:background="@drawable/editressource"
                 android:layout_marginBottom="30dp"
@@ -68,38 +81,23 @@
                 android:padding="20dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:text="leo@gmail.com"
                 android:textColor="@color/textColor"
                 android:background="@drawable/editressource"
                 android:layout_marginBottom="30dp"
+                android:hint="Phone number"
                 >
             </EditText>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:text="+33 7 81 42 92 80"
-                android:textColor="@color/textColor"
-                android:background="@drawable/editressource"
-                android:layout_marginBottom="30dp"
-                >
-            </EditText>
+            <Button
+                android:id="@+id/edit_date"
+                android:text="Birthday"
+                android:textColor="@color/white"
 
-            <EditText
+                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:text="11 / 08 / 1999"
-                android:textColor="@color/textColor"
-                android:background="@drawable/editressource"
-                android:layout_marginBottom="30dp"
-                >
-            </EditText>
+                android:onClick="changeDateBirthday"
+                android:layout_marginHorizontal="80dp">
+            </Button>
 
             <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/simpleTableLayout"
