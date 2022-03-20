@@ -1,33 +1,32 @@
-CREATE TABLE USER (
+CREATE TABLE USERS (
 	user_id INTEGER PRIMARY KEY AUTOINCREMENT,
 	name VARCHAR(30),
 	whatsapp VARCHAR(30),
-	address VARCHAR(50),
+	email VARCHAR(50),
 	age INTEGER,
 	about_me VARCHAR(100),
 	password VARCHAR(260)
 );
 
-CREATE TABLE EVENT (
+CREATE TABLE EVENTS (
 	event_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	name VARCHAR(30),
 	description VARCHAR(100),
 	date DATE,
 	creator INTEGER,
 	FOREIGN KEY (creator)
-	REFERENCES USER(user_id)
+	REFERENCES USERS(user_id)
 	ON DELETE CASCADE	
 );
 
-
-
 CREATE TABLE ASSOCIATIONS (
-	event_id_assoc INTEGER,
 	user_id_assoc INTEGER,
+	event_id_assoc INTEGER,
 	PRIMARY KEY(event_id_assoc, user_id_assoc),
 	FOREIGN KEY (user_id_assoc)
-	REFERENCES USER(user_id)
+	REFERENCES USERS(user_id)
 	ON DELETE CASCADE
 	FOREIGN KEY (event_id_assoc)
-	REFERENCES USER(event_id)
+	REFERENCES EVENTS(event_id)
 	ON DELETE CASCADE
 );
