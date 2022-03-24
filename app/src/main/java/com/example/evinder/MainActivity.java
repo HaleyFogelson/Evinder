@@ -62,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
         this.initPost();
         this.initListener();
+
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void initListener() {
