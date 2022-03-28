@@ -19,7 +19,7 @@ public class Users {
     @ColumnInfo(name = "email")
     public String email;
 
-    @ColumnInfo(name = "whatsapp")
+    @ColumnInfo(name = "age")
     public int age;
 
     @ColumnInfo(name = "about_me")
