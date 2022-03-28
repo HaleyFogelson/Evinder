@@ -5,6 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -22,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.evinder.MainActivity;
 import com.example.evinder.R;
 import com.example.evinder.ui.login.LoginViewModel;
 import com.example.evinder.ui.login.LoginViewModelFactory;
@@ -75,6 +77,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
+                    Intent intent = new Intent( LoginActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
                 setResult(Activity.RESULT_OK);
 
