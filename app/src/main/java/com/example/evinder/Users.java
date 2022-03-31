@@ -2,6 +2,7 @@ package com.example.evinder;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
@@ -37,6 +38,19 @@ public class Users {
     public String profilePic;
 
     public Users(int user_id, String name, String whatsapp, String email, int age, String about_me, String password, String friends, String profilePic) {
+        this.user_id = user_id;
+        this.name = name;
+        this.whatsapp = whatsapp;
+        this.email = email;
+        this.age = age;
+        this.about_me = about_me;
+        this.password = password;
+        this.friends = friends;
+        this.profilePic = profilePic;
+    }
+
+    @Ignore
+    public Users(String email, String name, String whatsapp, int age, String password) {
         this.user_id = user_id;
         this.name = name;
         this.whatsapp = whatsapp;
