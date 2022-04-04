@@ -1,11 +1,11 @@
 CREATE TABLE USERS (
 	user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-	name VARCHAR(30),
-	whatsapp VARCHAR(30),
-	email VARCHAR(50),
+	name TEXT,
+	whatsapp TEXT,
+	email TEXT,
 	age INTEGER,
-	about_me VARCHAR(100),
-	password VARCHAR(260)
+	about_me TEXT,
+	password TEXT
 );
 
 INSERT INTO USERS
@@ -19,8 +19,8 @@ INSERT INTO USERS
 
 CREATE TABLE EVENTS (
 	event_id INTEGER PRIMARY KEY AUTOINCREMENT,
-	name VARCHAR(30),
-	description VARCHAR(100),
+	name TEXT,
+	description TEXT,
 	date INTEGER,
 	creator INTEGER,
 	FOREIGN KEY (creator)
@@ -29,13 +29,13 @@ CREATE TABLE EVENTS (
 );
 
 INSERT INTO EVENTS
-	VALUES(1, 'Event1', 'cool event to drink', 100000000, 3);
+	VALUES(1, 'Event1', 'cool event to drink', 2000000000, 3);
 
 INSERT INTO EVENTS
-	VALUES(2, 'Event2', 'another event', 100000000, 1);
+	VALUES(2, 'Event2', 'another event', 2000000000, 1);
 
 INSERT INTO EVENTS
-	VALUES(3, 'Event3', 'best event', 100000000, 2);
+	VALUES(3, 'Event3', 'best event', 2000000000, 2);
 
 CREATE TABLE ASSOCIATIONS (
 	user_id_assoc INTEGER,

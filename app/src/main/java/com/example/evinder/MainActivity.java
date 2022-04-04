@@ -29,6 +29,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.InputStream;
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private DatePickerDialog date_p;
@@ -65,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
         this.initPost();
         this.initListener();
+
+        List<Events> ev = db.eventsDao().getAllEvents();
+        System.out.println(ev.get(0).getName());
     }
 
     public void initListener() {
@@ -119,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
             infosText = (TextView) findViewById(R.id.infosTextPost);
             new DownloadImageTask((ImageView) findViewById(R.id.main_card)).execute(SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getUrl());
             infosText.setText(SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getTextActivity());
-            System.out.println("INDICE : " + SauvegardeFragmentPostsView.indexView + "\n");
-            System.out.println("TEXT : " + SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getPseudo() + "\n");
+            //System.out.println("INDICE : " + SauvegardeFragmentPostsView.indexView + "\n");
+            //System.out.println("TEXT : " + SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getPseudo() + "\n");
 
             String builder = "";
             builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getPseudo() + ", ";
