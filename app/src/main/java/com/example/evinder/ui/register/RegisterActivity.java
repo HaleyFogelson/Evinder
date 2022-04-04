@@ -18,8 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.evinder.MainActivity;
 import com.example.evinder.databinding.ActivityRegisterBinding;
+import com.example.evinder.ui.login.LoginActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -29,6 +29,8 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        registerViewModel = new ViewModelProvider(this, new RegisterViewModelFactory())
+                .get(RegisterViewModel.class);
 
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -65,15 +67,8 @@ public class RegisterActivity extends AppCompatActivity {
                 if (registerResult == null) {
                     return;
                 }
-                loadingProgressBar.setVisibility(View.GONE);
-//                if (RegisterResult.getError() != null) {
-//                    showRegisterFailed(registerResult.getError());
-//                }
-//                if (registerResult.getSuccess() != null) {
-//                    updateUiWithUser(registerResult.getSuccess());
-//                    Intent intent = new Intent( RegisterActivity.this, MainActivity.class);
-//                    startActivity(intent);
-//                }
+                Intent intent = new Intent( RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
                 setResult(Activity.RESULT_OK);
 
                 //Complete and destroy register activity once successful
@@ -127,9 +122,19 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent( RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                setResult(Activity.RESULT_OK);
+                //Complete and destroy register activity once successful
+                finish();
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                //registerViewModel.register(usernameEditText.getText().toString(),
-                        //passwordEditText.getText().toString(), emailEditText.getText());;
+                registerViewModel.register(usernameEditText.getText().toString(),
+                        nameEditText.getText().toString(),
+                        phoneNumberEditText.getText().toString(),
+                        ageEditText.getText().toString(),
+                        passwordEditText.getText().toString(),
+                        passwordConfirmEditText.getText().toString());
+
             }
         });
     }

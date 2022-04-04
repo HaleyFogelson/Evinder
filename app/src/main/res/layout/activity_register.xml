@@ -14,27 +14,29 @@
     tools:context=".ui.register.RegisterActivity">
 
     <!--  username text -->
+
+    <!--  name text -->
+
     <EditText
         android:id="@+id/username"
         style="@style/Widget.Material3.AutoCompleteTextView.FilledBox"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="192dp"
         android:background="@drawable/round_corners"
         android:backgroundTint="#FBFBFB"
         android:hint="@string/prompt_email"
-        android:textColorHint="@color/textColor"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/textColor"
+        android:textColorHint="@color/textColor"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--  name text -->
     <EditText
         android:id="@+id/name"
         style="@android:style/Widget.EditText"
@@ -55,7 +57,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintTop_toBottomOf="@+id/username"/>
 
     <!--  phone number text -->
@@ -190,7 +192,7 @@
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="20dp"
         android:text="Evinder"
         android:textSize="75sp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -201,7 +203,7 @@
         android:id="@+id/textViewRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="120dp"
         android:text="Register"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@+id/textViewName"

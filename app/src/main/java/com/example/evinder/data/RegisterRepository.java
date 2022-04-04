@@ -5,21 +5,25 @@ import com.example.evinder.data.model.LoggedInUser;
 public class RegisterRepository {
     private static volatile RegisterRepository instance;
 
-    private LoginDataSource dataSource;
+    private RegisterDataSource dataSource;
 
-    // If user credentials will be cached in local storage, it is recommended it be encrypted
-    // @see https://developer.android.com/training/articles/keystore
-    private LoggedInUser user = null;
 
     // private constructor : singleton access
-    private RegisterRepository(LoginDataSource dataSource) {
+    private RegisterRepository(RegisterDataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    public static RegisterRepository getInstance(LoginDataSource dataSource) {
+    public static RegisterRepository getInstance(RegisterDataSource dataSource) {
         if (instance == null) {
             instance = new RegisterRepository(dataSource);
         }
         return instance;
+    }
+
+    public Result<LoggedInUser> register(String username, String name, String age,
+             String phoneNumber, String password, String confirmPassword){
+        // handle register
+        Result<LoggedInUser> result = dataSource.register(username,name,age,phoneNumber, password, confirmPassword);
+        return result;
     }
 }
