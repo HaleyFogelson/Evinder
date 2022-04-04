@@ -28,6 +28,7 @@ import com.example.evinder.R;
 import com.example.evinder.ui.login.LoginViewModel;
 import com.example.evinder.ui.login.LoginViewModelFactory;
 import com.example.evinder.databinding.ActivityLoginBinding;
+import com.example.evinder.ui.register.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
+        final Button SignUpLink = binding.textViewRegister;
         final ProgressBar loadingProgressBar = binding.loading;
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
@@ -126,6 +128,16 @@ public class LoginActivity extends AppCompatActivity {
                         passwordEditText.getText().toString());
             }
         });
+
+        SignUpLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
