@@ -22,12 +22,20 @@ public class Events {
     @ColumnInfo(name = "creator")
     public int creator;
 
-    public Events(int event_id, String name, String description, long date, int creator){
+    @ColumnInfo(name = "eventPic")
+    public String eventPic;
+
+    @ColumnInfo(name = "location")
+    public String location;
+
+    public Events(int event_id, String name, String description, long date, int creator, String eventPic, String location){
         this.event_id = event_id;
         this.name = name;
         this.description = description;
         this.date = date;
         this.creator = creator;
+        this.eventPic = eventPic;
+        this.location = location;
     }
 
     public int getEvent_id(){
@@ -68,5 +76,21 @@ public class Events {
 
     public void setCreator(int creator){
         this.creator = creator;
+    }
+
+    public String getEventPic(){
+        return this.eventPic;
+    }
+
+    public void setEventPic(String eventPic){
+        this.eventPic = eventPic;
+    }
+
+    public String getLocation(){
+      return this.location;
+    }
+
+    public void setLocation(String location){
+        this.location = location;
     }
 }

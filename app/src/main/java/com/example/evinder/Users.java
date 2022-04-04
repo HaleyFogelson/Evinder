@@ -2,6 +2,7 @@ package com.example.evinder;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -28,13 +29,30 @@ public class Users {
     @ColumnInfo(name = "password")
     public String password;
 
-    public Users(int user_id, String name, String whatsapp, String email, int age, String about_me, String password) {
+    @ColumnInfo(name = "friends")
+    public String friends; //ids of users separated by a comma
+
+    @ColumnInfo(name = "profilePic")
+    public String profilePic;
+
+    public Users(int user_id, String name, String whatsapp, String email, int age, String about_me, String password, String friends, String profilePic) {
         this.user_id = user_id;
         this.name = name;
         this.whatsapp = whatsapp;
         this.email = email;
         this.age = age;
         this.about_me = about_me;
+        this.password = password;
+        this.friends = friends;
+        this.profilePic = profilePic;
+    }
+
+    @Ignore
+    public Users(String email, String name, String whatsapp, int age, String password) {
+        this.email = email;
+        this.name = name;
+        this.whatsapp = whatsapp;
+        this.age = age;
         this.password = password;
     }
 
@@ -92,5 +110,21 @@ public class Users {
 
     public void setPassword(String password){
         this.password = password;
+    }
+
+    public String getFriends(){
+        return this.friends;
+    }
+
+    public void setFriends(String friends){
+        this.friends = friends;
+    }
+
+    public String getProfilePic(){
+        return this.profilePic;
+    }
+
+    public void setProfilePic(String profilePic){
+        this.profilePic = profilePic;
     }
 }
