@@ -86,7 +86,9 @@ public class Events {
         this.eventPic = eventPic;
     }
 
-    public String getLocation(){ return this.location; }
+    public String getLocation(){
+      return this.location;
+    }
 
     public void setLocation(String location){
         this.location = location;

@@ -5,8 +5,6 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.ArrayList;
-
 @Entity
 public class Users {
 
@@ -51,15 +49,11 @@ public class Users {
 
     @Ignore
     public Users(String email, String name, String whatsapp, int age, String password) {
-        this.user_id = user_id;
+        this.email = email;
         this.name = name;
         this.whatsapp = whatsapp;
-        this.email = email;
         this.age = age;
-        this.about_me = about_me;
         this.password = password;
-        this.friends = friends;
-        this.profilePic = profilePic;
     }
 
     public int getUser_id(){

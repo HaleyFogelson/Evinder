@@ -15,7 +15,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract UsersDao usersDao();
     public abstract EventsDao eventsDao();
-    public abstract AssociationsDao associationsDao();
+    public abstract AssociationsDao associationsDao()
 
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
@@ -30,5 +30,4 @@ public abstract class AppDatabase extends RoomDatabase {
                 .allowMainThreadQueries()
                 .build();
     }
-
 }
