@@ -7,11 +7,14 @@ public class RegisterFormState {
     private Integer usernameError;
     @Nullable
     private Integer passwordError;
+    @Nullable
+    private Integer confirmPasswordError;
     private boolean isDataValid;
 
-    RegisterFormState(@Nullable Integer usernameError, @Nullable Integer passwordError) {
+    RegisterFormState(@Nullable Integer usernameError, @Nullable Integer passwordError,  @Nullable Integer confirmPasswordError) {
         this.usernameError = usernameError;
         this.passwordError = passwordError;
+        this.confirmPasswordError= confirmPasswordError;
         this.isDataValid = false;
     }
 
@@ -30,6 +33,9 @@ public class RegisterFormState {
     Integer getPasswordError() {
         return passwordError;
     }
+
+    @Nullable
+    Integer getConfirmPasswordError() { return confirmPasswordError; }
 
     boolean isDataValid() {
         return isDataValid;
