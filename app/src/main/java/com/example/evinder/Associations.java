@@ -2,8 +2,20 @@ package com.example.evinder;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 
-@Entity(primaryKeys = {"user_id_assoc","event_id_assoc"})
+@Entity(primaryKeys = {"user_id_assoc","event_id_assoc"},
+        foreignKeys = {
+                @ForeignKey(entity = Users.class,
+                            parentColumns = "user_id",
+                            childColumns = "user_id_assoc",
+                            onDelete = ForeignKey.CASCADE),
+                @ForeignKey(entity = Events.class,
+                        parentColumns = "event_id",
+                        childColumns = "event_id_assoc",
+                        onDelete = ForeignKey.CASCADE)
+        }
+)
 public class Associations {
 
     @ColumnInfo(name = "user_id_assoc")

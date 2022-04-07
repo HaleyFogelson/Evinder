@@ -26,7 +26,10 @@ CREATE TABLE EVENTS (
 	date INTEGER NOT NULL,
 	creator INTEGER NOT NULL,
 	eventPic TEXT,
-	location TEXT
+	location TEXT,
+	FOREIGN KEY (creator)
+	REFERENCES USERS(user_id)
+	ON DELETE CASCADE
 );
 
 INSERT INTO EVENTS
@@ -41,7 +44,13 @@ INSERT INTO EVENTS
 CREATE TABLE ASSOCIATIONS (
 	user_id_assoc INTEGER NOT NULL,
 	event_id_assoc INTEGER NOT NULL,
-	PRIMARY KEY(user_id_assoc, event_id_assoc)
+	PRIMARY KEY(user_id_assoc, event_id_assoc),
+	FOREIGN KEY (user_id_assoc)
+	REFERENCES USERS(user_id)
+	ON DELETE CASCADE
+	FOREIGN KEY (event_id_assoc)
+	REFERENCES EVENTS(event_id)
+	ON DELETE CASCADE
 );
 
 INSERT INTO ASSOCIATIONS

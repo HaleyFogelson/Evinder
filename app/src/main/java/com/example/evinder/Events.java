@@ -2,9 +2,15 @@ package com.example.evinder;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(foreignKeys = {@ForeignKey(entity = Users.class,
+        parentColumns = "user_id",
+        childColumns = "creator",
+        onDelete = ForeignKey.CASCADE)
+})
 public class Events {
 
     @PrimaryKey(autoGenerate = true)
@@ -36,6 +42,16 @@ public class Events {
         this.creator = creator;
         this.eventPic = eventPic;
         this.location = location;
+    }
+
+    @Ignore
+    public Events(String name, String description, long date, int creator, String eventPic){
+        this.name = name;
+        this.description = description;
+        this.date = date;
+        this.creator = creator;
+        this.eventPic = eventPic;
+        this.location = "";
     }
 
     public int getEvent_id(){
