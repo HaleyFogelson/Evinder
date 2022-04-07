@@ -114,22 +114,18 @@
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center">
-            <ImageView
-                android:id="@+id/image_displayed"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/football"
-                android:visibility="gone">
-            </ImageView>
 
-            <Button
-                android:id="@+id/add_picture"
+            <EditText
+                android:id="@+id/image_url"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add a picture"
-                android:padding="20dp"
-                android:background="@color/cyan"
-                android:onClick="addPicture"></Button>
+                android:gravity="center"
+                android:hint="Image URL"
+                android:textColor="@color/textColor"
+                android:background="@drawable/editressource"
+                android:padding="10dp"
+                >
+            </EditText>
         </LinearLayout>
 
         <LinearLayout
@@ -165,11 +161,13 @@
             android:gravity="center"
             android:layout_marginBottom="100dp">
             <Button
+                android:id="@+id/confirm_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Confirm"
                 android:padding="20dp"
-                android:background="@color/cyan"></Button>
+                android:background="@color/cyan"
+                android:onClick="confirmAddEvent"></Button>
         </LinearLayout>
 
     </LinearLayout>

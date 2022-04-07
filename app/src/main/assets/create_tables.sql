@@ -33,13 +33,13 @@ CREATE TABLE EVENTS (
 );
 
 INSERT INTO EVENTS
-	VALUES(1, 'Event1', 'cool event to drink', 2000000000, 3, '', '');
+	VALUES(1, 'Event1', 'cool event to drink', 2000000000, 3, 'https://media.istockphoto.com/photos/group-of-friends-enjoying-drinks-at-bar-picture-id174951485?k=20&m=174951485&s=612x612&w=0&h=VTE7OgRXtA2D13g_GjZBNzckFKpBF97BjzKmFwHTLV8=', '');
 
 INSERT INTO EVENTS
-	VALUES(2, 'Event2', 'another event', 2000000000, 1, '', '');
+	VALUES(2, 'Event2', 'another event', 2000000000, 1, 'https://images.pexels.com/photos/8455350/pexels-photo-8455350.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500', '');
 
 INSERT INTO EVENTS
-	VALUES(3, 'Event3', 'best event', 2000000000, 2, '', '');
+	VALUES(3, 'Event3', 'best event', 2000000000, 2, 'https://barozziveiga.com/media/pages/projects/museum-of-fine-arts/4029461183-1623917242/12_19-10-mcba-ebv_simon-menges_06_hires.jpg', '');
 
 CREATE TABLE ASSOCIATIONS (
 	user_id_assoc INTEGER NOT NULL,
