@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +29,10 @@ import com.example.evinder.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,18 +61,21 @@ public class MainActivity extends AppCompatActivity {
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        SauvegardeFragmentPostsView.posts.add(new Post("https://media.istockphoto.com/photos/group-of-friends-enjoying-drinks-at-bar-picture-id174951485?k=20&m=174951485&s=612x612&w=0&h=VTE7OgRXtA2D13g_GjZBNzckFKpBF97BjzKmFwHTLV8=",
-                "Tomas", 2, 25, "15/02 15h", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis."));
+        /**
         SauvegardeFragmentPostsView.posts.add(new Post("https://images.pexels.com/photos/8455350/pexels-photo-8455350.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                 "Paul", 4, 22, "15/02 15h", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis."));
         SauvegardeFragmentPostsView.posts.add(new Post("https://barozziveiga.com/media/pages/projects/museum-of-fine-arts/4029461183-1623917242/12_19-10-mcba-ebv_simon-menges_06_hires.jpg",
                 "Lucy", 1, 25, "15/02 15h", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis."));
+        */
+
+        List<Events> ev = db.eventsDao().getAllEvents();
+
+        for (Events e : ev) {
+            SauvegardeFragmentPostsView.posts.add(new Post(e.eventPic, e.getName(), 1, 21, e.getDate()+"", e.getDescription()));
+        }
 
         this.initPost();
         this.initListener();
-
-        List<Events> ev = db.eventsDao().getAllEvents();
-        System.out.println(ev.get(0).getName());
     }
 
     public void initListener() {
@@ -130,7 +137,9 @@ public class MainActivity extends AppCompatActivity {
             builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getPseudo() + ", ";
             builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getAge() + " yo, ";
             builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getDistance() + " km,\n";
-            builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getDateActivity();
+            Long ts = Long.parseLong(SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getDateActivity());
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            builder += formatter.format(ts);
             infosOwner.setText(builder);
         }
     }
@@ -189,12 +198,44 @@ public class MainActivity extends AppCompatActivity {
         picker.show();
     }
 
-    public void addPicture(View view) {
-        ImageView iv = (ImageView) findViewById(R.id.image_displayed);
 
-        iv.setVisibility(View.VISIBLE);
-        SauvegardeFragmentAdd.image = true;
+    public void confirmAddEvent(View view) throws ParseException {
+        System.out.println("ENTRE DANS LA FONCTION");
+        /**
+         * EVENTS :
+         * event_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+         * 	name TEXT,
+         * 	description TEXT,
+         * 	date INTEGER NOT NULL,
+         * 	creator INTEGER NOT NULL,
+         * 	eventPic TEXT,
+         * 	location TEXT
+         */
+
+        EditText et_name = (EditText) findViewById(R.id.nameActivity);
+        EditText et_desc = (EditText) findViewById(R.id.descriptionEvent);
+        EditText et_image = (EditText) findViewById(R.id.image_url);
+
+        Button b = (Button) findViewById(R.id.edit_date);
+        String date = b.getText().toString();
+        EditText locationEt = (EditText) findViewById(R.id.location);
+        String location = locationEt.getText().toString();
+        String imageUrl = et_image.getText().toString();
+
+        Date dateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+
+        //need to modify "date"
+        //need to modify "creator"
+        //need to modify id
+        int id = 500 +(int)(Math.random() * ((5000 - 500) + 1));
+        Events events = new Events(id,et_name.getText().toString(), et_desc.getText().toString(), dateFormat.getTime(), 1, imageUrl,location);
+
+        db.eventsDao().insert(events);
     }
+
+
+
+
 
     //Taken from https://stackoverflow.com/questions/5776851/load-image-from-url/37612481#37612481
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
