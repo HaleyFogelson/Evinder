@@ -9,12 +9,19 @@ public class RegisterFormState {
     private Integer passwordError;
     @Nullable
     private Integer confirmPasswordError;
+    @Nullable
+    Integer ageError;
+    @Nullable
+    Integer phoneNumberError;
     private boolean isDataValid;
 
-    RegisterFormState(@Nullable Integer usernameError, @Nullable Integer passwordError,  @Nullable Integer confirmPasswordError) {
+    RegisterFormState(@Nullable Integer usernameError, @Nullable Integer passwordError,  @Nullable Integer confirmPasswordError,
+                      @Nullable Integer ageError,@Nullable Integer phoneNumberError) {
         this.usernameError = usernameError;
         this.passwordError = passwordError;
         this.confirmPasswordError= confirmPasswordError;
+        this.ageError = ageError;
+        this.phoneNumberError = phoneNumberError;
         this.isDataValid = false;
     }
 
