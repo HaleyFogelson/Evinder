@@ -9,8 +9,8 @@ import androidx.room.RoomDatabase;
 @Database(entities = {Users.class, Events.class, Associations.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
-    private static final String PRELOADED_DATABASE_FILE = "datasql_evinder.db";
-    private static final String DB_NAME = "datasql_evinder.db";
+    private static final String PRELOADED_DATABASE_FILE = "dd.db";
+    private static final String DB_NAME = "dd.db";
     private static volatile AppDatabase instance;
 
     public abstract UsersDao usersDao();

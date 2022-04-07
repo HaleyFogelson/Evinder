@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="font_dark">#000000</color>
     <color name="borderColor">#FCFCFD</color>
-    <color name="textColor">#000000</color>
+    <color name="textColor">#FCFCFD</color>
     <color name="borderColorLight">@color/black</color>
     <color name="disabled">#272727</color>
     <color name="red">#FF0000</color>

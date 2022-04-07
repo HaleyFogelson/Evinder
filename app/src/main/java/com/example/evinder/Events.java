@@ -93,4 +93,13 @@ public class Events {
     public void setLocation(String location){
         this.location = location;
     }
+
+    public String toString() {
+        String sb = "";
+
+        sb = this.name;
+        sb += ", created by "+this.creator;
+        sb += ", with picture : "+this.eventPic;
+        return sb;
+    }
 }

@@ -45,10 +45,6 @@ public class AddFragment extends Fragment {
             et.setText(SauvegardeFragmentAdd.name);
         }
 
-        if(SauvegardeFragmentAdd.image) {
-            ((MainActivity)getActivity()).addPicture(null);
-        }
-
         if(SauvegardeFragmentAdd.location != null) {
             EditText locationEt = (EditText) this.root.findViewById(R.id.location);
             locationEt.setText(SauvegardeFragmentAdd.location);
