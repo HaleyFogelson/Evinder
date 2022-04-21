@@ -28,7 +28,7 @@ CREATE TABLE EVENTS (
 	eventPic TEXT,
 	location TEXT,
 	FOREIGN KEY (creator)
-	REFERENCES USERS(user_id)
+	REFERENCES Users(user_id)
 	ON DELETE CASCADE
 );
 
@@ -46,10 +46,10 @@ CREATE TABLE ASSOCIATIONS (
 	event_id_assoc INTEGER NOT NULL,
 	PRIMARY KEY(user_id_assoc, event_id_assoc),
 	FOREIGN KEY (user_id_assoc)
-	REFERENCES USERS(user_id)
+	REFERENCES Users(user_id)
 	ON DELETE CASCADE
 	FOREIGN KEY (event_id_assoc)
-	REFERENCES EVENTS(event_id)
+	REFERENCES Events(event_id)
 	ON DELETE CASCADE
 );
 
