@@ -2,9 +2,16 @@ package com.example.evinder;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
+import androidx.room.DatabaseConfiguration;
+import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
+
+import com.example.evinder.data.RegisterDataSource;
+import com.example.evinder.data.RegisterRepository;
 
 @Database(entities = {Users.class, Events.class, Associations.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
@@ -16,6 +23,9 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract UsersDao usersDao();
     public abstract EventsDao eventsDao();
     public abstract AssociationsDao associationsDao();
+
+   // private RegisterDataSource dataSource;
+
 
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {

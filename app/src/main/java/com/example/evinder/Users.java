@@ -35,6 +35,7 @@ public class Users {
     @ColumnInfo(name = "profilePic")
     public String profilePic;
 
+    @Ignore
     public Users(int user_id, String name, String whatsapp, String email, int age, String about_me, String password, String friends, String profilePic) {
         this.user_id = user_id;
         this.name = name;
@@ -47,7 +48,6 @@ public class Users {
         this.profilePic = profilePic;
     }
 
-    @Ignore
     public Users(String email, String name, String whatsapp, int age, String password) {
         this.email = email;
         this.name = name;
