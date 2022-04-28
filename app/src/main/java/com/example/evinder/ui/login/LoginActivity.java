@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.evinder.AppDatabase;
 import com.example.evinder.MainActivity;
 import com.example.evinder.R;
 import com.example.evinder.ui.login.LoginViewModel;
@@ -34,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
+    private AppDatabase db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,9 @@ public class LoginActivity extends AppCompatActivity {
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        db = AppDatabase.getInstance(getApplicationContext());
 
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory(this.db))
                 .get(LoginViewModel.class);
 
         final EditText usernameEditText = binding.username;
