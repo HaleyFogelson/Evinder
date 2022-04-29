@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.example.evinder.AppDatabase;
 import com.example.evinder.MainActivity;
 import com.example.evinder.R;
+import com.example.evinder.StoreConnection;
 import com.example.evinder.ui.login.LoginViewModel;
 import com.example.evinder.ui.login.LoginViewModelFactory;
 import com.example.evinder.databinding.ActivityLoginBinding;
@@ -149,6 +150,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+
+        StoreConnection.connectedUserString = model.getDisplayName();
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

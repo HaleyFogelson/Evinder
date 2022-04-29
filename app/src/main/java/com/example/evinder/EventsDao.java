@@ -18,6 +18,9 @@ public interface EventsDao {
     @Query("SELECT * FROM Events WHERE name=:name")
     List<Events> getEventsByName(String name);
 
+    @Query("SELECT * FROM Events WHERE creator=:creat")
+    List<Events> getEventsByCreator(int creat);
+
     @Insert
     long insert(Events event);
 

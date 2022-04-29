@@ -127,4 +127,8 @@ public class Users {
     public void setProfilePic(String profilePic){
         this.profilePic = profilePic;
     }
+
+    public String toString() {
+        return this.user_id+"/"+this.name + "/" + this.whatsapp;
+    }
 }
