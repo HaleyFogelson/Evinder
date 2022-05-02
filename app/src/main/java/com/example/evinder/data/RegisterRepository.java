@@ -1,6 +1,6 @@
 package com.example.evinder.data;
 
-import com.example.evinder.data.model.LoggedInUser;
+import com.example.evinder.Users;
 
 public class RegisterRepository {
     private static volatile RegisterRepository instance;
@@ -20,10 +20,14 @@ public class RegisterRepository {
         return instance;
     }
 
-    public Result<LoggedInUser> register(String username, String name, String age,
+    public Result<Users> register(String username, String name, String age,
              String phoneNumber, String password, String confirmPassword){
         // handle register
-        Result<LoggedInUser> result = dataSource.register(username,name,age,phoneNumber, password, confirmPassword);
+        Result<Users> result = dataSource.register(username,name,age,phoneNumber, password, confirmPassword);
         return result;
+    }
+
+    public void register(String username, String name, String age, String phoneNumber, String password) {
+
     }
 }

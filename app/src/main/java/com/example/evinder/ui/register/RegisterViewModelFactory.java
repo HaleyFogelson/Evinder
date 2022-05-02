@@ -6,20 +6,24 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.evinder.AppDatabase;
 import com.example.evinder.MainActivity;
+import com.example.evinder.data.LoginDataSource;
+import com.example.evinder.data.LoginRepository;
 import com.example.evinder.data.RegisterDataSource;
 import com.example.evinder.data.RegisterRepository;
 import com.example.evinder.MainActivity;
+import com.example.evinder.ui.login.LoginViewModel;
 
 public class RegisterViewModelFactory implements ViewModelProvider.Factory {
+    private AppDatabase db;
+
+    public RegisterViewModelFactory(AppDatabase db){this.db=db;}
 
     @NonNull
     @Override
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(RegisterViewModel.class)) {
-            return (T) new RegisterViewModel(AppDatabase.getInstance(null));
-
-                    //RegisterRepository.getInstance(new RegisterDataSource()));
+           return (T) new RegisterViewModel(RegisterRepository.getInstance(new RegisterDataSource(this.db)));
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

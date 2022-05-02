@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.evinder.AppDatabase;
 import com.example.evinder.databinding.ActivityRegisterBinding;
 import com.example.evinder.ui.login.LoginActivity;
 
@@ -25,15 +26,17 @@ public class RegisterActivity extends AppCompatActivity {
 
     private RegisterViewModel registerViewModel;
     private ActivityRegisterBinding binding;
+    private AppDatabase db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        registerViewModel = new ViewModelProvider(this, new RegisterViewModelFactory())
-                .get(RegisterViewModel.class);
 
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        db = AppDatabase.getInstance(getApplicationContext());
+        registerViewModel = new ViewModelProvider(this, new RegisterViewModelFactory(this.db))
+                .get(RegisterViewModel.class);
 
         final EditText usernameEditText = binding.username;
         final EditText nameEditText = binding.name;
