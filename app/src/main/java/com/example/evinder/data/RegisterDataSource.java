@@ -1,10 +1,14 @@
 package com.example.evinder.data;
 
+import com.example.evinder.AppDatabase;
 import com.example.evinder.data.model.LoggedInUser;
 
 import java.io.IOException;
 
 public class RegisterDataSource {
+    private AppDatabase db;
+
+    public RegisterDataSource(AppDatabase db){this.db=db;}
 
     public Result<LoggedInUser> register(String username, String name, String age,
                                          String phoneNumber, String password, String confirmPassword) {

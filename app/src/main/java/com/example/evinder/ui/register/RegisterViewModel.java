@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.evinder.AppDatabase;
 import com.example.evinder.R;
 import com.example.evinder.Users;
+import com.example.evinder.data.RegisterRepository;
 import com.example.evinder.data.Result;
 import com.example.evinder.data.model.LoggedInUser;
 
@@ -16,12 +17,10 @@ public class RegisterViewModel extends ViewModel {
 
     private MutableLiveData<RegisterFormState> registerFormState = new MutableLiveData<>();
     private MutableLiveData<RegisterResult> registerResult = new MutableLiveData<>();
-    private AppDatabase db;
-    //private RegisterRepository registerRepository;
+    private RegisterRepository registerRepository;
 
-    RegisterViewModel(AppDatabase db) {
-        this.db = db;
-    }
+    public RegisterViewModel(RegisterRepository registerRepository){this.registerRepository=registerRepository;}
+
 
     LiveData<RegisterFormState> getRegisterFormState() {
         return registerFormState;
@@ -53,8 +52,7 @@ public class RegisterViewModel extends ViewModel {
         int ageNum = Integer.parseInt(age);
         //CREATE A new user using the App database
         if(password.matches(confirmPassword)) {
-            Users user = new Users(username, name, phoneNumber, ageNum, password);
-            db.usersDao().insert(user);
+            registerRepository.register(username, name, age, phoneNumber, password);
         }
     }
 

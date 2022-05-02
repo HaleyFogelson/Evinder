@@ -26,4 +26,8 @@ public class RegisterRepository {
         Result<LoggedInUser> result = dataSource.register(username,name,age,phoneNumber, password, confirmPassword);
         return result;
     }
+
+    public void register(String username, String name, String age, String phoneNumber, String password) {
+
+    }
 }
