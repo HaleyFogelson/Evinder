@@ -2,7 +2,6 @@ package com.example.evinder.data;
 
 import com.example.evinder.AppDatabase;
 import com.example.evinder.Users;
-import com.example.evinder.data.model.LoggedInUser;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,7 +25,6 @@ public class LoginDataSource {
                 System.out.println(u.name);
             }
             Users user = db.usersDao().getUserByEmail(username,password);
-            System.out.println(user.getAbout_me());
             if (user != null){
                 return new Result.Success<>(user);
             }
