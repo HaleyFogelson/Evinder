@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
+import com.example.evinder.Users;
 import com.example.evinder.data.LoginRepository;
 import com.example.evinder.data.Result;
 import com.example.evinder.data.model.LoggedInUser;
@@ -31,10 +32,10 @@ public class LoginViewModel extends ViewModel {
 
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
-        Result<LoggedInUser> result = loginRepository.login(username, password);
+        Result<Users> result = loginRepository.login(username, password);
 
         if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
+            Users data = ((Result.Success<Users>) result).getData();
             // Here is where the user is set
             loginResult.setValue(new LoginResult(new LoggedInUserView(username)));
         } else {

@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.evinder.AppDatabase;
+import com.example.evinder.MainActivity;
 import com.example.evinder.data.RegisterDataSource;
 import com.example.evinder.data.RegisterRepository;
+import com.example.evinder.MainActivity;
 
 public class RegisterViewModelFactory implements ViewModelProvider.Factory {
 
@@ -14,7 +17,9 @@ public class RegisterViewModelFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(RegisterViewModel.class)) {
-            return (T) new RegisterViewModel(RegisterRepository.getInstance(new RegisterDataSource()));
+            return (T) new RegisterViewModel(AppDatabase.getInstance(null));
+
+                    //RegisterRepository.getInstance(new RegisterDataSource()));
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }
