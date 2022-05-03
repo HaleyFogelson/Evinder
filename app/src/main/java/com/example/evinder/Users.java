@@ -5,10 +5,11 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "USERS")
 public class Users {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "user_id")
     public int user_id;
 
     @ColumnInfo(name = "name")
@@ -35,6 +36,14 @@ public class Users {
     @ColumnInfo(name = "profilePic")
     public String profilePic;
 
+    public Users(String email, String name, String whatsapp, int age, String password) {
+        this.email = email;
+        this.name = name;
+        this.whatsapp = whatsapp;
+        this.age = age;
+        this.password = password;
+    }
+
     @Ignore
     public Users(int user_id, String name, String whatsapp, String email, int age, String about_me, String password, String friends, String profilePic) {
         this.user_id = user_id;
@@ -46,14 +55,6 @@ public class Users {
         this.password = password;
         this.friends = friends;
         this.profilePic = profilePic;
-    }
-
-    public Users(String email, String name, String whatsapp, int age, String password) {
-        this.email = email;
-        this.name = name;
-        this.whatsapp = whatsapp;
-        this.age = age;
-        this.password = password;
     }
 
     public int getUser_id(){

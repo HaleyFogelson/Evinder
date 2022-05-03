@@ -4,16 +4,20 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(foreignKeys = {@ForeignKey(entity = Users.class,
-        parentColumns = "user_id",
-        childColumns = "creator",
-        onDelete = ForeignKey.CASCADE)
-})
+@Entity(tableName = "EVENTS",
+        indices = {@Index(value = {"creator"})},
+        foreignKeys = {@ForeignKey(entity = Users.class,
+                parentColumns = "user_id",
+                childColumns = "creator",
+                onDelete = ForeignKey.CASCADE)
+        })
 public class Events {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "event_id")
     public int event_id;
 
     @ColumnInfo(name = "name")
@@ -103,7 +107,7 @@ public class Events {
     }
 
     public String getLocation(){
-      return this.location;
+        return this.location;
     }
 
     public void setLocation(String location){
