@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.evinder.AppDatabase;
+import com.example.evinder.Users;
 import com.example.evinder.databinding.ActivityRegisterBinding;
 import com.example.evinder.ui.login.LoginActivity;
 
@@ -28,15 +29,18 @@ public class RegisterActivity extends AppCompatActivity {
     private ActivityRegisterBinding binding;
     private AppDatabase db;
 
+    private Users user;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        registerViewModel = new ViewModelProvider(this, new RegisterViewModelFactory())
+                .get(RegisterViewModel.class);
 
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         db = AppDatabase.getInstance(getApplicationContext());
-        registerViewModel = new ViewModelProvider(this, new RegisterViewModelFactory(this.db))
-                .get(RegisterViewModel.class);
 
         final EditText usernameEditText = binding.username;
         final EditText nameEditText = binding.name;
@@ -64,21 +68,6 @@ public class RegisterActivity extends AppCompatActivity {
                 if (registerFormState.getConfirmPasswordError() != null) {
                     passwordEditText.setError(getString(registerFormState.getConfirmPasswordError()));
                 }
-            }
-        });
-
-        registerViewModel.getRegisterResult().observe(this, new Observer<RegisterResult>() {
-            @Override
-            public void onChanged(@Nullable RegisterResult registerResult) {
-                if (registerResult == null) {
-                    return;
-                }
-                Intent intent = new Intent( RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-                setResult(Activity.RESULT_OK);
-
-                //Complete and destroy register activity once successful
-                finish();
             }
         });
 
@@ -114,12 +103,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    registerViewModel.register(usernameEditText.getText().toString(),
-                            nameEditText.getText().toString(),
-                            phoneNumberEditText.getText().toString(),
-                            ageEditText.getText().toString(),
-                            passwordEditText.getText().toString(),
-                            passwordConfirmEditText.getText().toString());
+                    Users user = new Users(usernameEditText.getText().toString(),nameEditText.getText().toString(),phoneNumberEditText.getText().toString(),Integer.parseInt(ageEditText.getText().toString()),passwordEditText.getText().toString());
+                    db.usersDao().insert(user);
                 }
                 return false;
             }
@@ -134,14 +119,12 @@ public class RegisterActivity extends AppCompatActivity {
                 //Complete and destroy register activity once successful
                 finish();
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                registerViewModel.register(usernameEditText.getText().toString(),
-                        nameEditText.getText().toString(),
-                        phoneNumberEditText.getText().toString(),
-                        ageEditText.getText().toString(),
-                        passwordEditText.getText().toString(),
-                        passwordConfirmEditText.getText().toString());
-
+                user = new Users(usernameEditText.getText().toString(),nameEditText.getText().toString(),phoneNumberEditText.getText().toString(),Integer.parseInt(ageEditText.getText().toString()),passwordEditText.getText().toString());
             }
         });
+    }
+
+    public void onClick(View v) {
+        db.usersDao().insert(user);
     }
 }

@@ -6,28 +6,17 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.evinder.AppDatabase;
 import com.example.evinder.R;
-import com.example.evinder.Users;
-import com.example.evinder.data.RegisterRepository;
-import com.example.evinder.data.Result;
-import com.example.evinder.data.model.LoggedInUser;
+
 
 public class RegisterViewModel extends ViewModel {
 
     private MutableLiveData<RegisterFormState> registerFormState = new MutableLiveData<>();
-    private MutableLiveData<RegisterResult> registerResult = new MutableLiveData<>();
-    private RegisterRepository registerRepository;
 
-    public RegisterViewModel(RegisterRepository registerRepository){this.registerRepository=registerRepository;}
-
+    RegisterViewModel() {}
 
     LiveData<RegisterFormState> getRegisterFormState() {
         return registerFormState;
-    }
-
-    public LiveData<RegisterResult> getRegisterResult() {
-        return registerResult;
     }
 
     public void registerDataChanged(String username, String name, String age,
@@ -45,23 +34,12 @@ public class RegisterViewModel extends ViewModel {
         }
     }
 
-
-    public void register(String username, String name, String age,
-                         String phoneNumber, String password, String confirmPassword) {
-
-        int ageNum = Integer.parseInt(age);
-        //CREATE A new user using the App database
-        if(password.matches(confirmPassword)) {
-            registerRepository.register(username, name, age, phoneNumber, password);
-        }
-    }
-
     // A placeholder username validation check
     private boolean isUserNameValid(String username) {
         if (username == null) {
             return false;
         }
-         return (username.contains("@")) && Patterns.EMAIL_ADDRESS.matcher(username).matches();
+        return (username.contains("@")) && Patterns.EMAIL_ADDRESS.matcher(username).matches();
     }
 
     // A placeholder password validation check
