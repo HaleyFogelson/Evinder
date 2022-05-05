@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -26,7 +27,7 @@ import android.widget.Toast;
 import com.example.evinder.AppDatabase;
 import com.example.evinder.MainActivity;
 import com.example.evinder.R;
-import com.example.evinder.StoreConnection;
+import com.example.evinder.Users;
 import com.example.evinder.ui.login.LoginViewModel;
 import com.example.evinder.ui.login.LoginViewModelFactory;
 import com.example.evinder.databinding.ActivityLoginBinding;
@@ -44,12 +45,13 @@ public class LoginActivity extends AppCompatActivity {
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         db = AppDatabase.getInstance(getApplicationContext());
 
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory(this.db))
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-        final EditText usernameEditText = binding.username;
+        final EditText emailEditText = binding.email;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
         final Button SignUpLink = binding.textViewRegister;
@@ -63,33 +65,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 loginButton.setEnabled(loginFormState.isDataValid());
                 if (loginFormState.getUsernameError() != null) {
-                    usernameEditText.setError(getString(loginFormState.getUsernameError()));
+                    emailEditText.setError(getString(loginFormState.getUsernameError()));
                 }
                 if (loginFormState.getPasswordError() != null) {
                     passwordEditText.setError(getString(loginFormState.getPasswordError()));
                 }
-            }
-        });
-
-        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
-            @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
-                    return;
-                }
-                loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
-                    Intent intent = new Intent( LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
-                }
-                setResult(Activity.RESULT_OK);
-
-                //Complete and destroy login activity once successful
-                finish();
             }
         });
 
@@ -106,19 +86,44 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                loginViewModel.loginDataChanged(usernameEditText.getText().toString(),
+                loginViewModel.loginDataChanged(emailEditText.getText().toString(),
                         passwordEditText.getText().toString());
             }
         };
-        usernameEditText.addTextChangedListener(afterTextChangedListener);
+        emailEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.addTextChangedListener(afterTextChangedListener);
         passwordEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    loginViewModel.login(usernameEditText.getText().toString(),
-                            passwordEditText.getText().toString());
+                    loadingProgressBar.setVisibility(View.VISIBLE);
+                    Users user = db.usersDao().getUserByCredentials(emailEditText.getText().toString(), passwordEditText.getText().toString());
+                    if(user != null){
+                        System.out.println("LoginActivity : Hello " + user.getName() + " !");
+                    } else {
+                        System.out.println("LoginActivity : USER IS NULL");
+                    }
+                    Handler handler1 = new Handler();
+                    handler1.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadingProgressBar.setVisibility(View.GONE);
+                            if(user != null){
+                                Toast.makeText(getApplicationContext(), "Hello " + user.getName() + " !", Toast.LENGTH_SHORT).show();
+                                Handler handler2 = new Handler();
+                                handler2.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                }, 1000);
+                            } else {
+                                Toast.makeText(getApplicationContext(), "The email or the password is wrong", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }, 2000);
                 }
                 return false;
             }
@@ -128,8 +133,32 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loadingProgressBar.setVisibility(View.VISIBLE);
-                loginViewModel.login(usernameEditText.getText().toString(),
-                        passwordEditText.getText().toString());
+                Users user = db.usersDao().getUserByCredentials(emailEditText.getText().toString(), passwordEditText.getText().toString());
+                if(user != null){
+                    System.out.println("LoginActivity : Hello " + user.getName() + " !");
+                } else {
+                    System.out.println("LoginActivity : USER IS NULL");
+                }
+                Handler handler1 = new Handler();
+                handler1.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingProgressBar.setVisibility(View.GONE);
+                        if(user != null){
+                            Toast.makeText(getApplicationContext(), "Hello " + user.getName() + " !", Toast.LENGTH_SHORT).show();
+                            Handler handler2 = new Handler();
+                            handler2.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                }
+                            }, 1000);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "The email or the password is wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, 2000);
             }
         });
 
@@ -142,19 +171,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
-
-
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
-
-        StoreConnection.connectedUserString = model.getDisplayName();
-    }
-
-    private void showLoginFailed(@StringRes Integer errorString) {
-        Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
     }
 }
