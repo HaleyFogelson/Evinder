@@ -29,8 +29,11 @@ import com.example.evinder.ui.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -68,14 +71,70 @@ public class MainActivity extends AppCompatActivity {
                 "Lucy", 1, 25, "15/02 15h", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis."));
         */
 
+        //INIT USER
+        this.initUser();
+
         List<Events> ev = db.eventsDao().getAllEvents();
 
         for (Events e : ev) {
-            SauvegardeFragmentPostsView.posts.add(new Post(e.eventPic, e.getName(), 1, 21, e.getDate()+"", e.getDescription()));
+            SauvegardeFragmentPostsView.posts.add(new Post(e.getEvent_id(), e.getEventPic(), e.getName(), e.getLocation(), 21, e.getDate()+"", e.getDescription(),e.getCreator()));
         }
 
         this.initPost();
         this.initListener();
+        this.initPostILiked();
+
+        System.out.println("AFFICHAGE ASSOCIATIONS");
+        ArrayList<Associations> as = (ArrayList<Associations>) db.associationsDao().getAllAssociations();
+        for (Associations a : as) {
+            System.out.println("ASSO : "+a.event_id_assoc+"/"+a.user_id_assoc);
+        }
+        System.out.println("FIN ASSOS");
+
+
+        System.out.println("\nPOST I LIKED :");
+        for(Post p:SauvegardeFragmentPostLiked.postsILiked) {
+            System.out.println("POST : "+p.getTextActivity());
+        }
+        System.out.println("\nEND \n");
+
+    }
+
+    public void initPostILiked() {
+        List<Associations> associationsILiked = db.associationsDao().getAssociationsForUser(StoreConnection.connectedUser.getUser_id());
+
+        ArrayList<Events> evILiked = new ArrayList<>();
+        for(Associations a:associationsILiked) {
+            int evId = a.getEvent_id_assoc();
+            Events e = db.eventsDao().getEventById(evId);
+            SauvegardeFragmentPostLiked.postsILiked.add(new Post(e.getEvent_id(), e.getEventPic(), e.getName(), e.getLocation(), 21, e.getDate()+"", e.getDescription(),e.getCreator()));
+        }
+    }
+
+    public ArrayList<Events> getEventsWithCreatorId(int id) {
+        ArrayList<Events> events = new ArrayList<>();
+
+        events = (ArrayList<Events>) db.eventsDao().getEventsByCreator(id);
+
+        return events;
+    }
+
+    public void initUser() {
+        //Simulate with Paul Bridier -> need to change when a user will really be connected
+        Users currentUser = null;
+        try {
+            currentUser = db.usersDao().getUsersByName("Paul Bridier").get(0);
+            StoreConnection.connectedUser = currentUser;
+        }catch (IndexOutOfBoundsException ioobe) {
+            System.out.println("Unfounded");
+        }catch(Exception e){
+            System.out.println("Failed");
+        }
+    }
+
+    public Users getUsersWithId(int id) {
+        Users u = db.usersDao().getUserById(id);
+        return u;
     }
 
     public void initListener() {
@@ -136,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             String builder = "";
             builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getPseudo() + ", ";
             builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getAge() + " yo, ";
-            builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getDistance() + " km,\n";
+            builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getLocation() + "\n";
             Long ts = Long.parseLong(SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getDateActivity());
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             builder += formatter.format(ts);
@@ -144,9 +203,51 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public ArrayList<Users> getParticipantsWithEvents(int events_id) {
+        ArrayList<Users> participants = new ArrayList<>();
+        ArrayList<Associations> asso_participants;
+        asso_participants = (ArrayList<Associations>) db.associationsDao().getUsersForAssociation(events_id);
+
+        for(Associations a:asso_participants) {
+            Users u = db.usersDao().getUserById(a.getUser_id_assoc());
+            participants.add(u);
+        }
+
+        return participants;
+    }
+
+    public void removeEvent(int id) {
+        Events eventRemoved =  db.eventsDao().getEventById(id);
+        db.eventsDao().delete(eventRemoved);
+    }
+
+    public void removeAssociation(int id) {
+        System.out.println("JE VEUX REMOVE : "+id+"/"+StoreConnection.connectedUser.getUser_id());
+        System.out.println("AFFICHAGE ASSOCIATIONS AVANT REMOVE");
+        ArrayList<Associations> as = (ArrayList<Associations>) db.associationsDao().getAllAssociations();
+        for (Associations a : as) {
+            System.out.println("ASSO : "+a.event_id_assoc+"/"+a.user_id_assoc);
+        }
+        System.out.println("FIN ASSOS AVANT REMOVE");
+
+        //Change by using the id of the person who is connected
+        try {
+            db.associationsDao().delete(new Associations(StoreConnection.connectedUser.getUser_id(), id));
+        }catch(android.database.sqlite.SQLiteConstraintException sE) {
+            System.out.println("already discarded");
+        }
+
+        System.out.println("AFFICHAGE ASSOCIATIONS APRES REMOVE");
+        ArrayList<Associations> as2 = (ArrayList<Associations>) db.associationsDao().getAllAssociations();
+        for (Associations a : as2) {
+            System.out.println("ASSO : "+a.user_id_assoc+"/"+a.event_id_assoc);
+        }
+        System.out.println("FIN ASSOS APRES REMOVE");
+    }
+
     public void likePost() {
         if(SauvegardeFragmentPostsView.indexView < SauvegardeFragmentPostsView.posts.size())
-            SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).setLiked();
+            SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).setLiked(db);
     }
 
     public void switchImage() {
@@ -228,13 +329,43 @@ public class MainActivity extends AppCompatActivity {
         //need to modify "creator"
         //need to modify id
         int id = 500 +(int)(Math.random() * ((5000 - 500) + 1));
-        Events events = new Events(id,et_name.getText().toString(), et_desc.getText().toString(), dateFormat.getTime(), 1, imageUrl,location);
+        Events events = new Events(id,et_name.getText().toString(), et_desc.getText().toString(), dateFormat.getTime(), StoreConnection.connectedUser.getUser_id(), imageUrl,location);
 
         db.eventsDao().insert(events);
     }
 
+    public void saveChanges(View view) {
+        EditText username, emailadress, phonenumber, birthday;
 
+        String name, address, phone, birth;
 
+        name = ((EditText)findViewById(R.id.firstnameuser)).getText().toString();
+        address = ((EditText)findViewById(R.id.emailaddress)).getText().toString();
+        phone = ((EditText)findViewById(R.id.phonenumber)).getText().toString();
+        birth = ((EditText)findViewById(R.id.ageuser)).getText().toString();
+
+        if(name.equals("") || address.equals("") || phone.equals("") || birth.equals("")) {
+            return;
+        }
+
+        //no problem :
+        StoreConnection.connectedUser.setName(name);
+        StoreConnection.connectedUser.setEmail(address);
+        StoreConnection.connectedUser.setWhatsapp(phone);
+
+        try {
+            StoreConnection.connectedUser.setAge(Integer.parseInt(birth));
+        }catch (Exception e){
+            System.out.println("Not a number");
+        }
+
+        try {
+            db.usersDao().update(StoreConnection.connectedUser);
+        }catch (Exception e){
+            System.out.println("Database error !");
+        }
+
+    }
 
 
     //Taken from https://stackoverflow.com/questions/5776851/load-image-from-url/37612481#37612481

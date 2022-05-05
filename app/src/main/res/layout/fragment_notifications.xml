@@ -63,6 +63,7 @@
             </EditText>
 
             <EditText
+                android:id="@+id/emailaddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
@@ -76,6 +77,7 @@
             </EditText>
 
             <EditText
+                android:id="@+id/phonenumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
@@ -88,16 +90,19 @@
                 >
             </EditText>
 
-            <Button
-                android:id="@+id/edit_date"
-                android:text="Birthday"
-                android:textColor="@color/white"
-
-                android:layout_height="match_parent"
+            <EditText
+                android:id="@+id/ageuser"
                 android:layout_width="match_parent"
-                android:onClick="changeDateBirthday"
-                android:layout_marginHorizontal="80dp">
-            </Button>
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:textColor="@color/textColor"
+                android:background="@drawable/editressource"
+                android:layout_marginBottom="30dp"
+                android:hint="Age"
+                >
+            </EditText>
 
             <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/simpleTableLayout"
@@ -145,12 +150,26 @@
                 </TableRow>
             </TableLayout>
 
+            <Button
+                android:id="@+id/savechanges"
+                android:text="Save changes"
+                android:textColor="@color/white"
+
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:onClick="saveChanges"
+                android:backgroundTint="@color/cyan"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp">
+            </Button>
+
             <LinearLayout
                 android:layout_height="50dp"
                 android:layout_width="match_parent"
                 android:paddingHorizontal="100dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="100dp">
+
                 <Button
                     android:id="@+id/disconnect"
                     android:text="Disconnect"

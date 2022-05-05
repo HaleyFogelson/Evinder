@@ -10,14 +10,6 @@
     android:orientation="vertical"
     android:background="@color/font_dark">
 
-    <ImageButton
-        android:layout_width="54dp"
-        android:layout_height="29dp"
-        android:text="Click"
-        android:src="@drawable/invitation"
-        tools:ignore="MissingConstraints"
-        android:backgroundTint="@color/black"></ImageButton>
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="match_parent"

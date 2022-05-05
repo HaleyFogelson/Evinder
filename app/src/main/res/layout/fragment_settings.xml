@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment"
+    android:background="@color/font_dark">
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
@@ -12,93 +13,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
-
-            <TextView
+            android:orientation="vertical"
+            android:id="@+id/bossLayout"
+            android:gravity="center">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_margin="20dp"
-                android:text="Events posted"
-                android:textSize="24sp"
-                android:textColor="@color/white" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="20dp"
-                android:padding="12dp"
-                android:background="@drawable/round_corners"
-                android:text="EventName01 \n15/02 15h \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_margin="20dp"
+                    android:text="Events posted"
+                    android:textSize="24sp"
+                    android:textColor="@color/white" />
 
-            <Button
-                android:id="@+id/edit1"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginHorizontal="40dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/round_corners"
-                android:backgroundTint="@color/cyan"
-                android:gravity="center"
-                android:text="Edit photo" />
-
-            <Button
-                android:id="@+id/remove1"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/round_corners"
-                android:backgroundTint="@color/red"
-                android:gravity="center"
-                android:text="Remove" />
-        </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="20dp"
-                android:padding="12dp"
-                android:background="@drawable/round_corners"
-                android:text="EventName02 \n12/02 14h30 \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
-                android:textSize="16sp"
-                android:textColor="@color/black" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <Button
-                android:id="@+id/edit2"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginHorizontal="40dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/round_corners"
-                android:backgroundTint="@color/cyan"
-                android:gravity="center"
-                android:text="Edit photo" />
-
-            <Button
-                android:id="@+id/remove2"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                android:gravity="center"
-                android:background="@drawable/round_corners"
-                android:backgroundTint="@color/red"
-                android:text="Remove" />
-        </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/layout_posted"></LinearLayout>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

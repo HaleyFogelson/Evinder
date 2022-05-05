@@ -4,25 +4,31 @@ public class Post {
     private String url;
     private boolean isLiked = false;
     private String pseudo;
-    private int distance, age;
+    private int age;
+    String location;
     private String dateActivity;
     private String textActivity;
+    private int id;
+    private int creator;
 
-    public Post(String u, String pseudo, int distance, int age, String dateActivity, String textActivity){
+    public Post(int id, String u, String pseudo, String location, int age, String dateActivity, String textActivity, int creator){
+        this.id = id;
         this.url = u;
         this.pseudo = pseudo;
-        this.distance = distance;
+        this.location = location;
         this.age = age;
         this.dateActivity = dateActivity;
         this.textActivity = textActivity;
+        this.creator = creator;
     }
+    public int getId() {return this.id;}
 
     public int getAge() {
         return age;
     }
 
-    public int getDistance() {
-        return distance;
+    public String getLocation() {
+        return location;
     }
 
     public String getDateActivity() {
@@ -37,12 +43,23 @@ public class Post {
         return textActivity;
     }
 
+    public int getCreator() { return this.creator;}
+
     public String getUrl() {
         return this.url;
     }
 
-    public void setLiked() {
+    public void setLiked(AppDatabase db) {
+        System.out.println(this.id+" has been liked <3");
         this.isLiked = true;
+
+        try {
+            db.associationsDao().insert(new Associations(StoreConnection.connectedUser.getUser_id(), this.id));
+        }catch(android.database.sqlite.SQLiteConstraintException sE) {
+            System.out.println("already liked");
+        }
+        //maybe change that part, in order to not have the same component twice in the list
+        SauvegardeFragmentPostLiked.postsILiked.add(this);
     }
 
     public void setAge(int age) {
@@ -53,8 +70,8 @@ public class Post {
         this.dateActivity = dateActivity;
     }
 
-    public void setDistance(int distance) {
-        this.distance = distance;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public void setPseudo(String pseudo) {
