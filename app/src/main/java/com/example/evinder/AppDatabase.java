@@ -2,22 +2,15 @@ package com.example.evinder;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
-
-import com.example.evinder.data.RegisterDataSource;
-import com.example.evinder.data.RegisterRepository;
 
 @Database(entities = {Users.class, Events.class, Associations.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
-    private static final String PRELOADED_DATABASE_FILE = "ddddd.db";
-    private static final String DB_NAME = "ddddd.db";
+    private static final String PRELOADED_DATABASE_FILE = "data.db";
+    private static final String DB_NAME = "data.db";
     private static volatile AppDatabase instance;
 
     public abstract UsersDao usersDao();

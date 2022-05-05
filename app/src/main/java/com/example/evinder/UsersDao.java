@@ -19,7 +19,7 @@ public interface UsersDao {
     List<Users> getUsersByName(String name);
 
     @Query("SELECT * FROM Users WHERE email=:email AND password=:password")
-    Users getUserByEmail(String email, String password);
+    Users getUserByCredentials(String email, String password);
 
     @Insert
     long insert(Users user);
