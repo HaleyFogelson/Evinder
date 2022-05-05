@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -120,6 +121,14 @@ public class RegisterActivity extends AppCompatActivity {
                 finish();
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 user = new Users(usernameEditText.getText().toString(),nameEditText.getText().toString(),phoneNumberEditText.getText().toString(),Integer.parseInt(ageEditText.getText().toString()),passwordEditText.getText().toString());
+                db.usersDao().insert(user);
+                System.out.println("Inserting user");
+                Users inserted_user = db.usersDao().getUserByCredentials(usernameEditText.getText().toString(),passwordEditText.getText().toString());
+                if(inserted_user != null) {
+                    Toast.makeText(getApplicationContext(),"Created user successfully",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(),"User not created",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
