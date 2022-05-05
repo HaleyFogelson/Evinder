@@ -26,6 +26,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.evinder.databinding.ActivityMainBinding;
 import com.example.evinder.ui.login.LoginActivity;
+import com.example.evinder.ui.register.RegisterActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.InputStream;
@@ -173,6 +174,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    public void disconnect(View view) {
+        StoreConnection.connectedUser = null;
+        StoreConnection.connectedUserString = null;
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void initPost() {
