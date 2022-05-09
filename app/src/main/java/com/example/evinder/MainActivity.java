@@ -1,12 +1,20 @@
 package com.example.evinder;
 
 import android.app.DatePickerDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +27,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -26,6 +35,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.evinder.databinding.ActivityMainBinding;
 import com.example.evinder.ui.login.LoginActivity;
+import com.example.evinder.ui.participants.ParticipantsFragment;
 import com.example.evinder.ui.register.RegisterActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -45,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
     private Calendar calendar;
     private DatePickerDialog picker;
     private AppDatabase db;
+
+    private static final String CHANNEL_ID = "io.github.bonigarcia.android.notification.notify_001";
+    private static final String CHANNEL_NAME = "My notification channel";
+    private NotificationManager notificationManager;
+    private int notificationId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
         List<Events> ev = db.eventsDao().getAllEvents();
 
         for (Events e : ev) {
-            SauvegardeFragmentPostsView.posts.add(new Post(e.getEvent_id(), e.getEventPic(), e.getName(), e.getLocation(), 21, e.getDate()+"", e.getDescription(),e.getCreator()));
+            Users u = this.db.usersDao().getUserById(e.getCreator());
+            SauvegardeFragmentPostsView.posts.add(new Post(e.getEvent_id(), e.getEventPic(), e.getName(), e.getLocation(), u.getAge(), e.getDate()+"", e.getDescription(),e.getCreator()));
         }
 
         this.initPost();
@@ -120,11 +136,15 @@ public class MainActivity extends AppCompatActivity {
         return events;
     }
 
+    public String getEventNameFromId(int id) {
+        Events event = db.eventsDao().getEventById(id);
+        return event.getName();
+    }
+
     public void initUser() {
-        //Simulate with Paul Bridier -> need to change when a user will really be connected
         Users currentUser = null;
         try {
-            currentUser = db.usersDao().getUsersByName("Paul Bridier").get(0);
+            currentUser = db.usersDao().getUserById(StoreConnection.connectedId);
             StoreConnection.connectedUser = currentUser;
         }catch (IndexOutOfBoundsException ioobe) {
             System.out.println("Unfounded");
@@ -178,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void disconnect(View view) {
         StoreConnection.connectedUser = null;
-        StoreConnection.connectedUserString = null;
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -322,6 +341,7 @@ public class MainActivity extends AppCompatActivity {
          * 	location TEXT
          */
 
+
         EditText et_name = (EditText) findViewById(R.id.nameActivity);
         EditText et_desc = (EditText) findViewById(R.id.descriptionEvent);
         EditText et_image = (EditText) findViewById(R.id.image_url);
@@ -334,13 +354,37 @@ public class MainActivity extends AppCompatActivity {
 
         Date dateFormat = new SimpleDateFormat("dd/MM/yyyy").parse(date);
 
-        //need to modify "date"
-        //need to modify "creator"
-        //need to modify id
         int id = 500 +(int)(Math.random() * ((5000 - 500) + 1));
         Events events = new Events(id,et_name.getText().toString(), et_desc.getText().toString(), dateFormat.getTime(), StoreConnection.connectedUser.getUser_id(), imageUrl,location);
 
         db.eventsDao().insert(events);
+
+        //if there is a problem, the following code will not be executed
+
+        Context context = view.getContext();
+        notificationManager = (NotificationManager) context
+                .getSystemService(context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(context, CHANNEL_ID);
+        builder.setContentTitle("Evinder");
+        builder.setContentText("Event correctly created");
+        builder.setSmallIcon(R.drawable.ic_heart_icon);
+        builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+        builder.setDefaults(Notification.DEFAULT_VIBRATE);
+        builder.setAutoCancel(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_HIGH);
+            channel.setDescription("Description channel");
+            notificationManager.createNotificationChannel(channel);
+            builder.setChannelId(CHANNEL_ID);
+        }
+        notificationId = 0;
+        notificationManager.notify(notificationId, builder.build());
+    }
+
+    public void changeViewToParticipants() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_participants, new ParticipantsFragment()).commit();
     }
 
     public void saveChanges(View view) {

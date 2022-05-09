@@ -57,6 +57,8 @@
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <!--  log in  button -->
+
+
     <Button
         android:id="@+id/login"
         android:layout_width="wrap_content"
@@ -64,15 +66,15 @@
         android:layout_gravity="start"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="64dp"
+        android:background="@color/cyan"
         android:enabled="false"
         android:text="@string/action_sign_in"
-        android:background="@color/cyan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.2" />
-
+        app:layout_constraintVertical_bias="0.078" />
 
     <ProgressBar
         android:id="@+id/loading"
@@ -89,22 +91,6 @@
         app:layout_constraintVertical_bias="0.3" />
 
 
-    <!-- forgot password  -->
-
-    <TextView
-        android:id="@+id/forgotpass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
-        android:gravity="end"
-        android:text="Forgot Password?"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/password"
-        app:layout_constraintHorizontal_bias="0.891"
-        app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.55" />
 
     <TextView
         android:id="@+id/textView"

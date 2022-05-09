@@ -1,0 +1,226 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "2bb1cd4c3829adc6c6c553577ac24c89",
+    "entities": [
+      {
+        "tableName": "USERS",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `whatsapp` TEXT, `email` TEXT, `age` INTEGER NOT NULL, `about_me` TEXT, `password` TEXT, `friends` TEXT, `profilePic` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "user_id",
+            "columnName": "user_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "whatsapp",
+            "columnName": "whatsapp",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "age",
+            "columnName": "age",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "about_me",
+            "columnName": "about_me",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "friends",
+            "columnName": "friends",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "profilePic",
+            "columnName": "profilePic",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "user_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "EVENTS",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`event_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `description` TEXT, `date` INTEGER NOT NULL, `creator` INTEGER NOT NULL, `eventPic` TEXT, `location` TEXT, FOREIGN KEY(`creator`) REFERENCES `USERS`(`user_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "event_id",
+            "columnName": "event_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "creator",
+            "columnName": "creator",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "eventPic",
+            "columnName": "eventPic",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "location",
+            "columnName": "location",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "event_id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_EVENTS_creator",
+            "unique": false,
+            "columnNames": [
+              "creator"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_EVENTS_creator` ON `${TABLE_NAME}` (`creator`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "USERS",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "creator"
+            ],
+            "referencedColumns": [
+              "user_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "ASSOCIATIONS",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id_assoc` INTEGER NOT NULL, `event_id_assoc` INTEGER NOT NULL, PRIMARY KEY(`user_id_assoc`, `event_id_assoc`), FOREIGN KEY(`user_id_assoc`) REFERENCES `USERS`(`user_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`event_id_assoc`) REFERENCES `EVENTS`(`event_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "user_id_assoc",
+            "columnName": "user_id_assoc",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "event_id_assoc",
+            "columnName": "event_id_assoc",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "user_id_assoc",
+            "event_id_assoc"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_ASSOCIATIONS_user_id_assoc",
+            "unique": false,
+            "columnNames": [
+              "user_id_assoc"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ASSOCIATIONS_user_id_assoc` ON `${TABLE_NAME}` (`user_id_assoc`)"
+          },
+          {
+            "name": "index_ASSOCIATIONS_event_id_assoc",
+            "unique": false,
+            "columnNames": [
+              "event_id_assoc"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ASSOCIATIONS_event_id_assoc` ON `${TABLE_NAME}` (`event_id_assoc`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "USERS",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "user_id_assoc"
+            ],
+            "referencedColumns": [
+              "user_id"
+            ]
+          },
+          {
+            "table": "EVENTS",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "event_id_assoc"
+            ],
+            "referencedColumns": [
+              "event_id"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2bb1cd4c3829adc6c6c553577ac24c89')"
+    ]
+  }
+}

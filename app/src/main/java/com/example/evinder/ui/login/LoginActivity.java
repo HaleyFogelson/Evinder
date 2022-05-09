@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.evinder.AppDatabase;
 import com.example.evinder.MainActivity;
 import com.example.evinder.R;
+import com.example.evinder.StoreConnection;
 import com.example.evinder.Users;
 import com.example.evinder.ui.login.LoginViewModel;
 import com.example.evinder.ui.login.LoginViewModelFactory;
@@ -100,7 +101,8 @@ public class LoginActivity extends AppCompatActivity {
                     loadingProgressBar.setVisibility(View.VISIBLE);
                     Users user = db.usersDao().getUserByCredentials(emailEditText.getText().toString(), passwordEditText.getText().toString());
                     if(user != null){
-                        System.out.println("LoginActivity : Hello " + user.getName() + " !");
+                        System.out.println("LoginActivity : Hello " + user.getName() +" with ID = "+user.getUser_id()+" !");
+                        StoreConnection.connectedId = user.getUser_id();
                     } else {
                         System.out.println("LoginActivity : USER IS NULL");
                     }
@@ -135,7 +137,8 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 Users user = db.usersDao().getUserByCredentials(emailEditText.getText().toString(), passwordEditText.getText().toString());
                 if(user != null){
-                    System.out.println("LoginActivity : Hello " + user.getName() + " !");
+                    System.out.println("LoginActivity : Hello " + user.getName() +" with ID = "+user.getUser_id()+" !");
+                    StoreConnection.connectedId = user.getUser_id();
                 } else {
                     System.out.println("LoginActivity : USER IS NULL");
                 }

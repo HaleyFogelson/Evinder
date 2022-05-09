@@ -12,15 +12,19 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.evinder.Events;
 import com.example.evinder.MainActivity;
+import com.example.evinder.Post;
 import com.example.evinder.R;
+import com.example.evinder.SauvegardeFragmentPostLiked;
 import com.example.evinder.StoreConnection;
 import com.example.evinder.Users;
 import com.example.evinder.databinding.FragmentSettingsBinding;
+import com.example.evinder.ui.participants.ParticipantsFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +38,8 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     private FragmentSettingsBinding binding;
     private HashMap<Button, Integer> buttonsRemove;
     private HashMap<Button, Integer> buttonsParticipants;
+    private LayoutInflater inflater;
+    private Button btnBack;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +47,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 new ViewModelProvider(this).get(SettingsViewModel.class);
 
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
+        this.inflater = inflater;
         View root = binding.getRoot();
         return root;
     }
@@ -52,7 +59,10 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initLayoutSettings() {
-        //récupérer les posts créés par l'utilisateur en cours.
+        TextView tv = ((MainActivity)getActivity()).findViewById(R.id.title_settings);
+        tv.setText("Events posted");
+
+        //get the posts created by the current user
         int current_id = StoreConnection.connectedUser.getUser_id();
         ArrayList<Events> evs = ((MainActivity)getActivity()).getEventsWithCreatorId(current_id);
         //sort :
@@ -191,7 +201,77 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                     System.out.println(u.getName());
                 }
                 System.out.println("END PARTICIPANTS");
+
+                /*
+                DOESN'T WORK
+                ParticipantsFragment fragment2 = new ParticipantsFragment();
+                FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container_participants, fragment2);
+                fragmentTransaction.commit();*/
+
+                /*
+                DOESN'T WORK
+                ((MainActivity)getActivity()).changeViewToParticipants();
+                 */
+
+                this.clearPanel();
+                this.initPanelViewParticipants(idEvent);
             }
         }
+
+        if(this.btnBack.equals(view)) {
+            this.clearPanel();
+            this.initLayoutSettings();
+        }
+    }
+
+    private void clearPanel() {
+        LinearLayout ll = ((MainActivity)getActivity()).findViewById(R.id.layout_posted);
+        ll.removeAllViews();
+    }
+
+    private void initPanelViewParticipants(int idEvent) {
+        String eventName = ((MainActivity)getActivity()).getEventNameFromId(idEvent);
+        TextView tv = ((MainActivity)getActivity()).findViewById(R.id.title_settings);
+        tv.setText("Participants for "+eventName);
+        LinearLayout ll = ((MainActivity)getActivity()).findViewById(R.id.layout_posted);
+
+        ArrayList<Users> participants = ((MainActivity)getActivity()).getParticipantsWithEvents(idEvent);
+
+        this.btnBack = new Button(((MainActivity)getActivity()).getApplicationContext());
+        btnBack.setText("Back");
+        btnBack.setTextColor(Color.WHITE);
+        btnBack.setBackground(((MainActivity)getActivity()).getDrawable(R.drawable.round_corners));
+        btnBack.setBackgroundTintList(((MainActivity)getActivity()).getColorStateList(R.color.red));
+        btnBack.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        btnBack.setGravity(Gravity.CENTER_HORIZONTAL);
+        btnBack.setPadding(30,30,30,30);
+        btnBack.setOnClickListener(this);
+        ll.addView(btnBack);
+
+        for(Users u:participants) {
+            System.out.println(u.getName());
+
+            TextView tvNew = new TextView(((MainActivity) getActivity()).getApplicationContext());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(30, 30, 30, 30);
+            tvNew.setLayoutParams(params);
+            tvNew.setGravity(Gravity.LEFT);
+
+            tvNew.setText(u.getName() + "\n" + u.getAge() + "\n" + u.getWhatsapp());
+            tvNew.setTextSize(22);
+            tvNew.setBackground(((MainActivity) getActivity()).getDrawable(R.drawable.round_corners));
+            tvNew.setPadding(20, 20, 20, 20);
+            ll.addView(tvNew);
+        }
+        //Add an empty layout with a margin bottom to ensure that the user can see all the events
+        LinearLayout empty = new LinearLayout(((MainActivity)getActivity()).getApplicationContext());
+        LinearLayout.LayoutParams paramsEmpty = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        paramsEmpty.setMargins(0,0,0,180);
+        empty.setLayoutParams(paramsEmpty);
+        empty.setOrientation(LinearLayout.HORIZONTAL);
+
+        ll.addView(empty);
     }
 }
