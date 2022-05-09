@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "2bb1cd4c3829adc6c6c553577ac24c89",
+    "identityHash": "0f346e59a6b15e1daf991492b41f9a01",
     "entities": [
       {
         "tableName": "USERS",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `whatsapp` TEXT, `email` TEXT, `age` INTEGER NOT NULL, `about_me` TEXT, `password` TEXT, `friends` TEXT, `profilePic` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `whatsapp` TEXT, `email` TEXT, `age` INTEGER NOT NULL, `about_me` TEXT, `password` TEXT)",
         "fields": [
           {
             "fieldPath": "user_id",
@@ -47,18 +47,6 @@
           {
             "fieldPath": "password",
             "columnName": "password",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "friends",
-            "columnName": "friends",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "profilePic",
-            "columnName": "profilePic",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -220,7 +208,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2bb1cd4c3829adc6c6c553577ac24c89')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0f346e59a6b15e1daf991492b41f9a01')"
     ]
   }
 }
