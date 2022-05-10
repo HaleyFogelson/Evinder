@@ -103,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
         for(Associations a:associationsILiked) {
             int evId = a.getEvent_id_assoc();
             Events e = db.eventsDao().getEventById(evId);
-            SauvegardeFragmentPostLiked.postsILiked.add(new Post(e.getEvent_id(), e.getEventPic(), e.getName(), e.getLocation(), 21, e.getDate()+"", e.getDescription(),e.getCreator()));
+            Users u = this.db.usersDao().getUserById(e.getCreator());
+            SauvegardeFragmentPostLiked.postsILiked.add(new Post(e.getEvent_id(), e.getEventPic(), e.getName(), e.getLocation(), u.getAge(), e.getDate()+"", e.getDescription(),e.getCreator()));
         }
     }
 
@@ -177,6 +178,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void disconnect(View view) {
         StoreConnection.connectedUser = null;
+        SauvegardeFragmentAdd.date = "Date";
+        SauvegardeFragmentAdd.description = "";
+        SauvegardeFragmentAdd.location = "";
+        SauvegardeFragmentAdd.name = "";
+        SauvegardeFragmentPostsView.indexView = 0;
+        SauvegardeFragmentPostsView.posts.clear();
+        SauvegardeFragmentPostLiked.postsILiked.clear();
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
