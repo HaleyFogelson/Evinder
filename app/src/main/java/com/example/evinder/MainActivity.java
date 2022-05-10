@@ -88,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
         for (Events e : ev) {
             Users u = this.db.usersDao().getUserById(e.getCreator());
-            SauvegardeFragmentPostsView.posts.add(new Post(e.getEvent_id(), e.getEventPic(), e.getName(), e.getLocation(), u.getAge(), e.getDate()+"", e.getDescription(),e.getCreator()));
+            if (u.getUser_id() != StoreConnection.connectedUser.getUser_id())
+                SauvegardeFragmentPostsView.posts.add(new Post(e.getEvent_id(), e.getEventPic(), e.getName(), e.getLocation(), u.getAge(), e.getDate()+"", e.getDescription(),e.getCreator()));
         }
 
         this.initPost();

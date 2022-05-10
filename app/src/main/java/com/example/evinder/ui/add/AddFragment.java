@@ -52,7 +52,7 @@ public class AddFragment extends Fragment {
 
         if(SauvegardeFragmentAdd.description != null) {
             EditText descriptionEt = (EditText) this.root.findViewById(R.id.descriptionEvent);
-            descriptionEt.setText(SauvegardeFragmentAdd.location);
+            descriptionEt.setText("");
         }
 
         if(SauvegardeFragmentAdd.date != null) {
