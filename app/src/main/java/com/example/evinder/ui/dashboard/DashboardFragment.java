@@ -43,38 +43,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
 
     public void onActivityCreated (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        for(int i =0; i< SauvegardeFragmentPostLiked.postsILiked.size(); i++){
-            System.out.println(SauvegardeFragmentPostLiked.postsILiked.get(i).getId());
-        }
-        System.out.println("END");
         initLayoutDashboard();
     }
 
-    /**
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_margin="20dp"
-    android:padding="12dp"
-    android:background="@drawable/round_corners"
-    android:text="Tomas, 25 yo, 2 km \n15/02 15h \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
-    android:textSize="16sp"
-    android:textColor="@color/black" />*/
-
-    /**
-     * <Button
-     *             android:id="@+id/remove1"
-     *             android:layout_width="140dp"
-     *             android:layout_height="wrap_content"
-     *             android:layout_gravity="center_horizontal"
-     *             android:layout_marginBottom="20dp"
-     *             android:gravity="center"
-     *             android:background="@drawable/round_corners"
-     *             android:backgroundTint="@color/red"
-     *             android:text="Remove" />
-     */
     private void initLayoutDashboard() {
         this.buttonsRemove = new HashMap<>();
         LinearLayout ll = ((MainActivity)getActivity()).findViewById(R.id.layout_swiped);
@@ -150,7 +121,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener 
     public void onClick(View view) {
         for (Map.Entry mapentry : buttonsRemove.entrySet()) {
             if(mapentry.getKey().equals(view)) {
-                System.out.println("ENTREE DANS LE REMOVE CLICK");
                 remove((Integer) mapentry.getValue());
             }
         }

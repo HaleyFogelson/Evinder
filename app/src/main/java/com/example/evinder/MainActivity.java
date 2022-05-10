@@ -80,12 +80,6 @@ public class MainActivity extends AppCompatActivity {
         //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        /**
-        SauvegardeFragmentPostsView.posts.add(new Post("https://images.pexels.com/photos/8455350/pexels-photo-8455350.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                "Paul", 4, 22, "15/02 15h", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis."));
-        SauvegardeFragmentPostsView.posts.add(new Post("https://barozziveiga.com/media/pages/projects/museum-of-fine-arts/4029461183-1623917242/12_19-10-mcba-ebv_simon-menges_06_hires.jpg",
-                "Lucy", 1, 25, "15/02 15h", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis."));
-        */
 
         //INIT USER
         this.initUser();
@@ -100,21 +94,6 @@ public class MainActivity extends AppCompatActivity {
         this.initPost();
         this.initListener();
         this.initPostILiked();
-
-        System.out.println("AFFICHAGE ASSOCIATIONS");
-        ArrayList<Associations> as = (ArrayList<Associations>) db.associationsDao().getAllAssociations();
-        for (Associations a : as) {
-            System.out.println("ASSO : "+a.event_id_assoc+"/"+a.user_id_assoc);
-        }
-        System.out.println("FIN ASSOS");
-
-
-        System.out.println("\nPOST I LIKED :");
-        for(Post p:SauvegardeFragmentPostLiked.postsILiked) {
-            System.out.println("POST : "+p.getTextActivity());
-        }
-        System.out.println("\nEND \n");
-
     }
 
     public void initPostILiked() {
@@ -217,8 +196,6 @@ public class MainActivity extends AppCompatActivity {
             infosText = (TextView) findViewById(R.id.infosTextPost);
             new DownloadImageTask((ImageView) findViewById(R.id.main_card)).execute(SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getUrl());
             infosText.setText(SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getTextActivity());
-            //System.out.println("INDICE : " + SauvegardeFragmentPostsView.indexView + "\n");
-            //System.out.println("TEXT : " + SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getPseudo() + "\n");
 
             String builder = "";
             builder += SauvegardeFragmentPostsView.posts.get(SauvegardeFragmentPostsView.indexView).getPseudo() + ", ";
@@ -250,27 +227,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void removeAssociation(int id) {
-        System.out.println("JE VEUX REMOVE : "+id+"/"+StoreConnection.connectedUser.getUser_id());
-        System.out.println("AFFICHAGE ASSOCIATIONS AVANT REMOVE");
-        ArrayList<Associations> as = (ArrayList<Associations>) db.associationsDao().getAllAssociations();
-        for (Associations a : as) {
-            System.out.println("ASSO : "+a.event_id_assoc+"/"+a.user_id_assoc);
-        }
-        System.out.println("FIN ASSOS AVANT REMOVE");
-
         //Change by using the id of the person who is connected
         try {
             db.associationsDao().delete(new Associations(StoreConnection.connectedUser.getUser_id(), id));
         }catch(android.database.sqlite.SQLiteConstraintException sE) {
             System.out.println("already discarded");
         }
-
-        System.out.println("AFFICHAGE ASSOCIATIONS APRES REMOVE");
-        ArrayList<Associations> as2 = (ArrayList<Associations>) db.associationsDao().getAllAssociations();
-        for (Associations a : as2) {
-            System.out.println("ASSO : "+a.user_id_assoc+"/"+a.event_id_assoc);
-        }
-        System.out.println("FIN ASSOS APRES REMOVE");
     }
 
     public void likePost() {
@@ -291,7 +253,6 @@ public class MainActivity extends AppCompatActivity {
 
         this.calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        System.out.println("DAY : "+day);
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
 
@@ -313,7 +274,6 @@ public class MainActivity extends AppCompatActivity {
 
         this.calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        System.out.println("DAY : "+day);
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
 
@@ -329,19 +289,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void confirmAddEvent(View view) throws ParseException {
-        System.out.println("ENTRE DANS LA FONCTION");
-        /**
-         * EVENTS :
-         * event_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-         * 	name TEXT,
-         * 	description TEXT,
-         * 	date INTEGER NOT NULL,
-         * 	creator INTEGER NOT NULL,
-         * 	eventPic TEXT,
-         * 	location TEXT
-         */
-
-
         EditText et_name = (EditText) findViewById(R.id.nameActivity);
         EditText et_desc = (EditText) findViewById(R.id.descriptionEvent);
         EditText et_image = (EditText) findViewById(R.id.image_url);
@@ -383,13 +330,8 @@ public class MainActivity extends AppCompatActivity {
         notificationManager.notify(notificationId, builder.build());
     }
 
-    public void changeViewToParticipants() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.container_participants, new ParticipantsFragment()).commit();
-    }
 
     public void saveChanges(View view) {
-        EditText username, emailadress, phonenumber, birthday;
-
         String name, address, phone, birth;
 
         name = ((EditText)findViewById(R.id.firstnameuser)).getText().toString();

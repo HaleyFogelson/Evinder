@@ -38,15 +38,12 @@ public class ParticipantsFragment extends Fragment {
 
         ((MainActivity)getActivity()).initPost();
         ((MainActivity)getActivity()).initListener();
-
-        System.out.println("CONNECTED AS : "+ StoreConnection.connectedUser);
     }
 
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        System.out.println("DESTROYED !");
         binding = null;
     }
 }

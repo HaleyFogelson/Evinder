@@ -122,7 +122,6 @@ public class RegisterActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 user = new Users(usernameEditText.getText().toString(),nameEditText.getText().toString(),phoneNumberEditText.getText().toString(),Integer.parseInt(ageEditText.getText().toString()),passwordEditText.getText().toString());
                 db.usersDao().insert(user);
-                System.out.println("Inserting user");
                 Users inserted_user = db.usersDao().getUserByCredentials(usernameEditText.getText().toString(),passwordEditText.getText().toString());
                 if(inserted_user != null) {
                     Toast.makeText(getApplicationContext(),"Created user successfully",Toast.LENGTH_SHORT).show();

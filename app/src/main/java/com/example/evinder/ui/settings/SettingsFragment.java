@@ -77,18 +77,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         this.buttonsParticipants = new HashMap<>();
         LinearLayout ll = ((MainActivity)getActivity()).findViewById(R.id.layout_posted);
 
-        /**
-         * <TextView
-         *                 android:layout_width="wrap_content"
-         *                 android:layout_height="wrap_content"
-         *                 android:layout_gravity="center_horizontal"
-         *                 android:layout_margin="20dp"
-         *                 android:padding="12dp"
-         *                 android:background="@drawable/round_corners"
-         *                 android:text="EventName01 \n15/02 15h \n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur id sapien congue, ultricies velit a, mollis orci. Nunc turpis turpis. "
-         *                 android:textSize="16sp"
-         *                 android:textColor="@color/black" />
-         */
 
         for(Events e:evs) {
             TextView tvNew = new TextView(((MainActivity)getActivity()).getApplicationContext());
@@ -195,25 +183,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
             if(mapentry.getKey().equals(view)) {
                 int idEvent = (Integer)mapentry.getValue();
                 ArrayList<Users> participants = ((MainActivity)getActivity()).getParticipantsWithEvents(idEvent);
-
-                System.out.println("PARTICIPANTS FOR EVENT : "+idEvent);
-                for(Users u:participants) {
-                    System.out.println(u.getName());
-                }
-                System.out.println("END PARTICIPANTS");
-
-                /*
-                DOESN'T WORK
-                ParticipantsFragment fragment2 = new ParticipantsFragment();
-                FragmentManager fragmentManager = getChildFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.container_participants, fragment2);
-                fragmentTransaction.commit();*/
-
-                /*
-                DOESN'T WORK
-                ((MainActivity)getActivity()).changeViewToParticipants();
-                 */
 
                 this.clearPanel();
                 this.initPanelViewParticipants(idEvent);
