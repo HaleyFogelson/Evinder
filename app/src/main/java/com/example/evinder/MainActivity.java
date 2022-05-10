@@ -86,21 +86,31 @@ public class MainActivity extends AppCompatActivity {
 
         List<Events> ev = db.eventsDao().getAllEvents();
 
+        this.initPostILiked();
+
         for (Events e : ev) {
             Users u = this.db.usersDao().getUserById(e.getCreator());
-            if (u.getUser_id() != StoreConnection.connectedUser.getUser_id())
+            if (u.getUser_id() != StoreConnection.connectedUser.getUser_id()
+            && !inLiked(e))
                 SauvegardeFragmentPostsView.posts.add(new Post(e.getEvent_id(), e.getEventPic(), e.getName(), e.getLocation(), u.getAge(), e.getDate()+"", e.getDescription(),e.getCreator()));
         }
 
         this.initPost();
         this.initListener();
-        this.initPostILiked();
+    }
+
+    private boolean inLiked(Events e) {
+        for(Post p : SauvegardeFragmentPostLiked.postsILiked) {
+            if(p.getId() == e.event_id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void initPostILiked() {
         List<Associations> associationsILiked = db.associationsDao().getAssociationsForUser(StoreConnection.connectedUser.getUser_id());
 
-        ArrayList<Events> evILiked = new ArrayList<>();
         for(Associations a:associationsILiked) {
             int evId = a.getEvent_id_assoc();
             Events e = db.eventsDao().getEventById(evId);
